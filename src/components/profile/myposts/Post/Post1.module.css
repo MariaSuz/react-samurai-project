@@ -1,0 +1,14 @@
+.imgsize{
+    max-width:200px;
+}
+
+.text {
+    color: #49c0f0;
+}
+
+.center {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
