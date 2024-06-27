@@ -12,9 +12,16 @@ function Dialogs(props) {
     <DioMessages message={message.message} id={message.id}/>
   );
 
- let addMessages = () => {
+let newMessagesPost = React.createRef(); 
   
+ let addMessages = () => { 
+  props.dispatch({ type:'ADD-MESSAGES' });
  }
+
+ let onPostChange = () => {
+  let messages = newMessagesPost.current.value;
+  props.dispatch({ type:'UPDATE-NEW-POST-MESSAGES', newText: messages });
+}
 
   return (
     <div className={DialogsCSS.center}>
@@ -23,7 +30,7 @@ function Dialogs(props) {
         </div>
         <div className={DialogsCSS.messages}>
           {messagesElements}
-          <textarea className={DialogsCSS.textarea} />
+          <textarea className={DialogsCSS.textarea} ref={newMessagesPost} onChange={onPostChange} value={props.newPostMessage}/>
           <button className={DialogsCSS.but} onClick={addMessages}>Add message</button>
         </div>
     </div>

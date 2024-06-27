@@ -17,11 +17,12 @@ function MyPost(props) {
   let newPostElement = React.createRef();
 
   let OnButtonClick = () => {
-    props.addPost();
+    props.dispatch({ type:'ADD-POST' });
   }
   let onPostChange = () => {
     let text = newPostElement.current.value;
-    props.upDateNewPostTest(text);
+    let action = { type:'UPDATE-NEW-POST-TEXT', newText: text };
+    props.dispatch(action)
   }    
     return (
       <div>
