@@ -1,3 +1,4 @@
+import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profile-reducer';
 import MyPostCss from'./MyPosts.module.css';
 import Post1 from './Post/Post1';
 import React from 'react';
@@ -9,6 +10,7 @@ import React from 'react';
 //   {id: 4, message: 'Its my firts post', likesCount: 1},
 // ]
 
+
 function MyPost(props) {
   let posts = props.posts.map( p =>
     <Post1 message={p.message} likeCount={p.likesCount} id={p.id}/>
@@ -17,12 +19,15 @@ function MyPost(props) {
   let newPostElement = React.createRef();
 
   let OnButtonClick = () => {
-    props.dispatch({ type:'ADD-POST' });
+    props.addPost();
+    //props.dispatch(addPostActionCreator()); в презентационной компоненте ничего не хочу знать о бизнесе 
   }
   let onPostChange = () => {
     let text = newPostElement.current.value;
-    let action = { type:'UPDATE-NEW-POST-TEXT', newText: text };
-    props.dispatch(action)
+    props.updateNewPostText(text);
+    //let action = { type:'UPDATE-NEW-POST-TEXT', newText: text }; в презентационной компоненте ничего не хочу знать о бизнесе 
+   // let action = updateNewPostTextActionCreator(text); в презентационной компоненте ничего не хочу знать о бизнесе 
+   // props.dispatch(action) в презентационной компоненте ничего не хочу знать о бизнесе 
   }    
     return (
       <div>

@@ -4,23 +4,26 @@ import DioMessages from './mesages/Messages';
 import React from 'react';
 
 function Dialogs(props) {
-  let dilogsElements = props.state.dialogsData.map(dialog => 
+  debugger;
+  let state = props.messagesPage;
+
+  let dilogsElements = state.dialogsData.map(dialog => 
     <Itemsmany names={dialog.names} id={dialog.id}/>,
   );
   
-  let messagesElements = props.state.messagesData.map(message =>
+  let messagesElements = state.messagesData.map(message =>
     <DioMessages message={message.message} id={message.id}/>
   );
 
 let newMessagesPost = React.createRef(); 
-  
- let addMessages = () => { 
-  props.dispatch({ type:'ADD-MESSAGES' });
+
+ let addMessages = () => {
+  props.addMessagesClick();
  }
 
  let onPostChange = () => {
   let messages = newMessagesPost.current.value;
-  props.dispatch({ type:'UPDATE-NEW-POST-MESSAGES', newText: messages });
+  props.updateNewPostMessage(messages);
 }
 
   return (

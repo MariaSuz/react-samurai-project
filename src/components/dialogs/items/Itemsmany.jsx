@@ -1,5 +1,5 @@
 import ItemsCSS from './Item.module.css';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
 
 function Itemsmany(props) {
