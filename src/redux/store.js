@@ -32,7 +32,12 @@ let store = {
     ],
     newPostMessage: '' 
     },
-    sidebar:  
+    sidebar: {
+      sidebarData: [
+      'Limanado',
+      'PizzaLiker',
+      'Alien',
+    ]
   },
 
   _callSubscriber() {

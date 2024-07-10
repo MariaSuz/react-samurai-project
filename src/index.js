@@ -5,22 +5,27 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals'; 
+import {Provider} from 'react-redux'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let rerenderEntireTree = (state) => {
+//let rerenderEntireTree = (state) => {
 root.render(
   <React.StrictMode>
-    <App state={state} dispatch={store.dispatch.bind(store)} store={store}/>
+    <Provider store={store}>
+      {/* <App state={state} dispatch={store.dispatch.bind(store)} store={store}/> */}
+      <App />
+    </Provider>
   </React.StrictMode>
 );
-}
+ //}
 
 reportWebVitals();
 
-rerenderEntireTree(store.getState());
+//Нам больше не надо отрисовывать дерево, тк подлючено react-redux , connect это делает дальше, локально отрисовывает.
+// rerenderEntireTree(store.getState());
 
-store.subscribe( () => {
-  let state = store.getState();
-  rerenderEntireTree(state);
-});
+// store.subscribe( () => {
+//   let state = store.getState();
+//   rerenderEntireTree(state);
+// });

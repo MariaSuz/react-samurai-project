@@ -6,8 +6,8 @@ function FriendsList(props) {
     //     <span className={FriendsListCSS.spantext}>{el.names}</span>
     //  })
     return (
-       <span className={FriendsListCSS.spantext}>{props.names + ''}</span>
-    )
+       <span className={FriendsListCSS.spantext}>{props.names}</span>
+   )
   }
 
   export default FriendsList;

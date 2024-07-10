@@ -20,23 +20,26 @@ newPostMessage: ''
 };
 
 const dialogsReducer = (state = initialState, action) => {
+  //let stateCopy = {...state};
+  //stateCopy.messagesData = [...state.messagesData];
+  let stateCopy;
+
     if(action.type === ADD_MESSAGES) {
-        let newMessage = {
-          id: 5, 
-          message: state.newPostMessage,
-        };
-        //state.messagesData.push(newMessage);
-        return {
-        ...state,
-        messagesData:[...state.messagesData, newMessage] 
+        //let newMessage = {id: 5, message: state.newPostMessage,};
+        let mes = state.newPostMessage;
+        stateCopy = {
+          ...state,
+          messagesData: [...state.messagesData, {id: 5, message: mes}],
+          newPostMessage: ''
         }
+        return stateCopy;
       }
       else if(action.type === UPDATE_NEW_POST_MESSAGES) {
-       // state.newPostMessage = action.newText; 
-       return {
-       ...state,
-       newPostMessage: action.newText 
-       }
+      stateCopy = {
+        ...state,
+        newPostMessage: action.newText
+      }
+      return stateCopy;
       }
     return state;
 }

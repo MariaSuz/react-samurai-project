@@ -15,31 +15,43 @@ let initialState = {
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POST: 
-            let newPost = {
-                id: 5,
-                message: state.newPostText,
-                likesCount: 0
-                };
-            return {
-                ...state,
-                postData:[...state.postData, newPost], 
+        case ADD_POST: {
+            // let newPost = {
+            //     id: 5,
+            //     message: state.newPostText,
+            //     likesCount: 0
+            //     };
+            // let stateCopy = {...state};
+            // stateCopy.postData = [...state.postData];
+            // stateCopy.postData.push(newPost);
+            // stateCopy.newPostText = '';
+            // return stateCopy;
+                // ...state,
+                // postData:[...state.postData, newPost],
             //state.postData.push(newPost);
-            newPostText:'',
-            };
-        case UPDATE_NEW_POST_TEXT:
-            return {
+            let mes = state.newPostText;
+            return  {
+              ...state,
+              postData: [...state.postData, {id: 5, message: mes,likesCount: 0}],
+              newPostText: ''
+            }
+              }
+        case UPDATE_NEW_POST_TEXT: {
+              // let stateCopy = {...state};
+              // stateCopy.newPostText = action.newText;
+              // return stateCopy;
+              return {
                 ...state,
-                newPostText: action.newText,
-            };
-        default: 
-            return state;    
+                newPostText: action.newText
+              }
+        }
+        default:
+            return state;
     }
-    
     // if (action.type === ADD_POST) {
     //     let newPost = {
     //     id: 5,
-    //     // id: length(state.profilePage.postData)-1, 
+    //     // id: length(state.profilePage.postData)-1,
     //     message: state.newPostText,
     //     likesCount: 0
     //     }
@@ -56,7 +68,7 @@ export let addPostActionCreator = () => {
     return {
       type: ADD_POST
     }
-  }  
+  }
 export let updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
 
 export default profileReducer;

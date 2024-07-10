@@ -4,15 +4,14 @@ import DioMessages from './mesages/Messages';
 import React from 'react';
 
 function Dialogs(props) {
-  debugger;
   let state = props.messagesPage;
 
   let dilogsElements = state.dialogsData.map(dialog => 
-    <Itemsmany names={dialog.names} id={dialog.id}/>,
+    <Itemsmany names={dialog.names} id={dialog.id} key={dialog.id}/>,
   );
   
   let messagesElements = state.messagesData.map(message =>
-    <DioMessages message={message.message} id={message.id}/>
+    <DioMessages message={message.message} id={message.id} key={message.id}/>
   );
 
 let newMessagesPost = React.createRef(); 
