@@ -1,3 +1,12 @@
+.numbersdiv{
+    margin-top: 20px;
+    margin-left: 50%;
+}
+
+.selectedPage {
+    font-weight: bold;
+}
+
 .maindiv {
     display: flex;
     align-items: center;
