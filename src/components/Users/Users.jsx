@@ -1,7 +1,7 @@
-
 import styles from './users.module.css'
 import userPhoto from '../../assets/images/user.png';
 import { NavLink } from 'react-router-dom';
+import { usersAPI } from '../../api/api';
 import axios from 'axios';
 
 
@@ -31,9 +31,9 @@ let Users = (props) => {
                     {u.followed
                     // ?  <button className={styles.buttonfollow} onClick={() => {props.unfollow(u.id)}}>Follow</button>
                     // :  <button className={styles.buttonunfollow} onClick={() => {props.follow(u.id)}}>Unfollow</button>}
-                    ?  <button className={styles.buttonfollow} onClick={() => {
-
-                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/{u.id}`,  {
+                    ?  <button disabled={props.followingInProgress.some(id => id === u.id)} className={styles.buttonfollow} onClick={() => {
+                        props.togglefollowingInProgress(true, u.id)
+                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,  {
                             withCredentials: true,
                             headers: {
                                 "API-KEY": "5b479c9b-9199-48a5-ae7e-4ff0bdc2ca58"
@@ -43,12 +43,13 @@ let Users = (props) => {
                             if (response.data.resultCode === 0) {
                                 props.unfollow(u.id);
                             }
+                            props.togglefollowingInProgress(false, u.id)
                           });
 
                     }}>Unfollow</button>
-                    :  <button className={styles.buttonunfollow} onClick={() => {
-
-                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/{u.id}`, {}, {
+                    :  <button disabled={props.followingInProgress.some(id => id === u.id)} className={styles.buttonunfollow} onClick={() => {
+                        props.togglefollowingInProgress(true, u.id)
+                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                             withCredentials: true,
                             headers: {
                                 "API-KEY": "5b479c9b-9199-48a5-ae7e-4ff0bdc2ca58"
@@ -58,8 +59,30 @@ let Users = (props) => {
                             if (response.data.resultCode === 0) {
                                 props.follow(u.id);
                             }
+                            props.togglefollowingInProgress(false, u.id)
                           });
                           }}>Follow</button>}
+
+                    {/* // Кнопка не рабочая
+                    // ?  <button disabled={props.followingInProgress} className={styles.buttonfollow} onClick={() => {
+                    //     props.followingInProgress(true)
+                    //     usersAPI.deleteFollowerApi(u.id)
+                    //     .then(response => {
+                    //                 if (response.data.resultCode === 0) {
+                    //                     props.unfollow(u.id);
+                    //                 }
+                    //               });
+
+                    // }}>Unfollow</button>
+                    // :  <button disabled={props.followingInProgress} className={styles.buttonunfollow} onClick={() => {
+                    //     props.followingInProgress(true)
+                    //     usersAPI.postFollowerApi(u.id)
+                    //     .then(response => {
+                    //                 if (response.data.resultCode === 0) {
+                    //                     props.follow(u.id);
+                    //                 }
+                    //               });
+                    //       }}>Follow</button>}   */}
                 </span>
             </div>
             <div className={styles.rightcolumn}>
