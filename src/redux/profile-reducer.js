@@ -1,7 +1,7 @@
 import { profileAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+// const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_ID = 'SET_USER_ID';
 const SET_STATUS = 'SET_STATUS';
@@ -36,22 +36,22 @@ const profileReducer = (state = initialState, action) => {
                 // ...state,
                 // postData:[...state.postData, newPost],
             //state.postData.push(newPost);
-            let mes = state.newPostText;
+            let mes = action.post;
             return  {
               ...state,
               postData: [...state.postData, {id: 5, message: mes,likesCount: 0}],
-              newPostText: ''
+              // newPostText: ''
             }
               }
-        case UPDATE_NEW_POST_TEXT: {
-              // let stateCopy = {...state};
-              // stateCopy.newPostText = action.newText;
-              // return stateCopy;
-              return {
-                ...state,
-                newPostText: action.newText
-              }
-        }
+        // case UPDATE_NEW_POST_TEXT: {
+        //       // let stateCopy = {...state};
+        //       // stateCopy.newPostText = action.newText;
+        //       // return stateCopy;
+        //       return {
+        //         ...state,
+        //         newPostText: action.newText
+        //       }
+        // }
         case SET_USER_PROFILE: {
           return {...state, profile: action.profile}
         }
@@ -64,34 +64,24 @@ const profileReducer = (state = initialState, action) => {
         default:
             return state;
     }
-    // if (action.type === ADD_POST) {
-    //     let newPost = {
-    //     id: 5,
-    //     // id: length(state.profilePage.postData)-1,
-    //     message: state.newPostText,
-    //     likesCount: 0
-    //     }
-    //    state.postData.push(newPost);
-    //    state.newPostText = '';
-    // } else if (action.type === UPDATE_NEW_POST_TEXT) {
-    //     state.newPostText = action.newText; 
-    // }     
-    // return state;
 }
 
 
-export let addPostActionCreator = () => {
-    return {
-      type: ADD_POST
-    }
-  }
-export let updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
+// export let addPostActionCreator = () => {
+//     return {
+//       type: ADD_POST
+//     }
+//   }
+// export let updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
+
+export let addPost = (post)=> ({type: ADD_POST, post})
 
 export let setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 
 export let setUserId = (userId) => ({type: SET_USER_ID, userId})
 
 export let setprofileStatus = (status) => ({type: SET_STATUS, status})
+
 
 export default profileReducer;
 

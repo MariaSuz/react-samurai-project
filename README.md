@@ -1,1 +1,0 @@
-Зарегистрироваться https://social-network.samuraijs.com/docs#, чтобы увидеть своё имя. 

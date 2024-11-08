@@ -1,5 +1,5 @@
 const ADD_MESSAGES = 'ADD-MESSAGES';
-const UPDATE_NEW_POST_MESSAGES = 'UPDATE-NEW-POST-MESSAGES';
+// const UPDATE_NEW_POST_MESSAGES = 'UPDATE-NEW-POST-MESSAGES';
 
 let initialState = {
   messagesData: [
@@ -15,44 +15,57 @@ dialogsData: [
   {id: 4, names: 'Limanado'},
   {id: 5, names: 'PizzaLiker'},
   {id: 6, names: 'Alien'},
-],
-newPostMessage: ''
+]
 };
 
-const dialogsReducer = (state = initialState, action) => {
-  //let stateCopy = {...state};
-  //stateCopy.messagesData = [...state.messagesData];
-  let stateCopy;
+// const dialogsReducer = (state = initialState, action) => {
+//   let stateCopy;
+//   debugger
 
-    if(action.type === ADD_MESSAGES) {
-        //let newMessage = {id: 5, message: state.newPostMessage,};
-        let mes = state.newPostMessage;
-        stateCopy = {
-          ...state,
-          messagesData: [...state.messagesData, {id: 5, message: mes}],
-          newPostMessage: ''
-        }
-        return stateCopy;
+//     if(action.type === ADD_MESSAGES) {
+//         let mes = action.newMessageBody;
+//         stateCopy = {
+//           ...state,
+//           messagesData: [...state.messagesData, {id: 5, message: mes}]
+//         }
+
+//       }
+//       else if(action.type === UPDATE_NEW_POST_MESSAGES) {
+//       stateCopy = {
+//         ...state,
+//         newMessageBody: action.newText
+//       }
+//       return stateCopy;
+//       }
+//     return state;
+// }
+
+
+// Оптимизируем 
+
+const dialogsReducer = (state = initialState, action) => {
+  switch (action.type) {
+      case ADD_MESSAGES: {
+        let mes = action.newMessageBody;
+        return {...state, messagesData: [...state.messagesData, {id: 5, message: mes}]}
       }
-      else if(action.type === UPDATE_NEW_POST_MESSAGES) {
-      stateCopy = {
-        ...state,
-        newPostMessage: action.newText
-      }
-      return stateCopy;
-      }
-    return state;
+      // case UPDATE_NEW_POST_MESSAGES: {
+      //   return {...state, newMessageBody: action.newText }
+      // }
+      default:
+        return state;
+  }
 }
 
 
 //Сокращаем (тк 1 значение возвращает)
-export let addMessagesActionCreator = () => ({type: ADD_MESSAGES});
+export let addMessages = (newMessageBody) => ({type: ADD_MESSAGES, newMessageBody});
  
-export let updateNewPostMessageActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_POST_MESSAGES,
-    newText: text
-  }
-}
+// export let updateNewPostMessageActionCreator = (text) => {
+//   return {
+//     type: UPDATE_NEW_POST_MESSAGES,
+//     newText: text
+//   }
+// }
 
-export default dialogsReducer; 
+export default dialogsReducer;
