@@ -3,6 +3,7 @@ import MyPostCss from'./MyPosts.module.css';
 import Post1 from './Post/Post1';
 import React from 'react';
 import { requuiredField, maxLengthCreator } from '../../../utils/validators/validators';
+import { Textarea } from '../../Common/FormsControls/FormsControls';
 
 function MyPost(props) {
 
@@ -20,7 +21,8 @@ function MyPost(props) {
       <form onSubmit={props.handleSubmit}>
         <div className={MyPostCss.text}>
           {/* <textarea ref={newPostElement} value={props.newPostText} onChange={onPostChange}/> */}
-          <Field placeholder={'Add post'} name={'posts'} component={'textarea'}
+          <Field placeholder={'Add post'} name={'posts'} component={Textarea}
+          // <Field placeholder={'Add post'} name={'posts'} component={'textarea'}
           validate ={[ requuiredField, maxLengthCreator(30) ]}/>
           <button>Add post</button>
         </div>
