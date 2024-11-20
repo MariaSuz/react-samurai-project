@@ -8,22 +8,24 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer.jsx';
 import NavbarContainer from './components/navbar/NavbarContainer.js';
 import LoginContainer from './components/login/LoginContainer';
-
-
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+// import {withAuthRedidirect}  from './hoc/AuthRedirect.js';
+import { compose } from 'redux';
+import { initializeApp } from './redux/app-reducer.js';
+// import Preloader from './components/Common/Preloader/Preloader.js';
 
 function App(props) {
+  useEffect(( ) => {
+    props.initializeApp();
+  }, [ ] )
   return (
     <BrowserRouter>
     <div className='app-wrapper'>
         <HeaderContainer />
-        {/* <Navbar state={props.state.sidebar}/> */}
         <NavbarContainer />
         <div className='content'>
           <Routes>
-            {/* <Route path='/profile' element = {<Profile state={props.state.profilePage} dispatch={props.dispatch}/>} />
-            <Route path='/dialogs/*' element = {<Dialogs  state={props.state.messagesPage} dispatch={props.dispatch}/>}/> */}
-             {/* <Route path='/profile' element = {<Profile store={props.store}/>} />
-             <Route path='/dialogs/*' element = {<DialogsContainer store={props.store}/>} /> */}
               <Route path='/profile/:userId?' element = {<ProfileContainer />} />
               <Route path='/dialogs/*' element = {<DialogsContainer />} />
               <Route path='/users' element = {<UsersContainer />} />
@@ -35,4 +37,17 @@ function App(props) {
   );
 }
 
-export default App;
+
+
+const mapStateToProps = (state) => {
+  return {
+    initialize: state.app.initialize,
+  }
+}
+
+export default compose(
+  connect(mapStateToProps, {initializeApp}),
+  // withAuthRedidirect
+)(App);
+
+

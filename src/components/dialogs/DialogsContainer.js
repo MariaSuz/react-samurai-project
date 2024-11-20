@@ -57,8 +57,9 @@ class DialogsContainer extends React.Component {
 
 
 export default compose(
-  connect(mapStateToProps,  {addMessages})
-)(Dialogs);
+  connect(mapStateToProps,  {addMessages}),
+  withAuthRedidirect
+)(DialogsContainer);
 
 
 

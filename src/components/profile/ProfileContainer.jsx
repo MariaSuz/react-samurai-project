@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { profileMe, setUserId, profileStatus, updateProfileStatus } from "../../redux/profile-reducer";
 import {useParams} from "react-router-dom";
 import { compose } from "redux";
+import LoginContainer from '../login/LoginContainer';
 
 export function withRouter(Children){
     return(props)=>{
@@ -17,7 +18,10 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 31414;
+            userId = this.props.authorizedUser;
+            if (!userId) {
+                return <LoginContainer />
+            }
         }
         this.props.profileMe(userId);
         this.props.profileStatus(userId);
@@ -34,6 +38,8 @@ let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     userId: state.profilePage.profile,
     status: state.profilePage.status,
+    isAuth: state.auth.isAuth,
+    authorizedUser: state.auth.userId,
 })
 
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer);

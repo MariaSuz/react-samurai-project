@@ -28,8 +28,8 @@ export const authAPI = {
     getAuth() {
         return instance.get(`auth/me`)
     },
-    getLogin(email, password, rememberMe) {
-        return instance.post(`/auth/login`);
+    getLogin(email, password, rememberMe = false, captcha = false) {
+        return instance.post(`/auth/login`, {email, password, rememberMe, captcha} );
     },
     getLogOut() {
         return instance.delete(`/auth/login`);

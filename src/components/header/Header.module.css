@@ -17,3 +17,20 @@
 .loginnav{
     color:white;
 }
+
+.logindiv{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex-direction: flex-end;
+    font-size: 15px;
+}
+
+.logout_button {
+    max-width: 200px;
+    background-color:  transparent;
+    color:#fafafa;
+    border: 0;
+    margin-left: -5px;
+    cursor: pointer;
+}
