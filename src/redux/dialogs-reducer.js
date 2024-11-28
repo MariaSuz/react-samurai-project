@@ -1,4 +1,4 @@
-const ADD_MESSAGES = 'ADD-MESSAGES';
+const ADD_MESSAGES = 'dialogs/ADD-MESSAGES';
 // const UPDATE_NEW_POST_MESSAGES = 'UPDATE-NEW-POST-MESSAGES';
 
 let initialState = {

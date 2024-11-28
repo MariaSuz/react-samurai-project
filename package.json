@@ -1,5 +1,10 @@
 {
   "name": "my-app",
+  "jest": {
+    "moduleNameMapper": {
+    "^axios$": "axios/dist/node/axios.cjs"
+  }
+ },
   "homepage": "https://MariaSuz.github.io/react-samurai-project",
   "version": "0.1.0",
   "private": true,

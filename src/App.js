@@ -2,7 +2,6 @@
 import './App.css';
 import HeaderContainer from './components/header/HeaderContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
-//import Navbar from './components/navbar/Navbar';
 import DialogsContainer from './components/dialogs/DialogsContainer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer.jsx';

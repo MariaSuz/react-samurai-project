@@ -1,0 +1,23 @@
+.numbersdiv{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.selectedPage {
+    font-weight: bold;
+}
+
+
+.btnnumber{
+    padding: .2rem .5rem; 
+    background-color:  #49c0f0;
+    color:#fafafa;
+    transition: all .3s;
+    cursor: pointer;
+}
+

@@ -65,15 +65,8 @@ class UsersAPIComponent extends React.Component {
     }
 
     onPageChanged = (pageNumber) => {
-
         this.props.setCurrentPage(pageNumber);
-        // this.props.toggleIsFetching(true);
         this.props.getUsersThunk(pageNumber, this.props.pageSize);
-        
-        // usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-        //     this.props.toggleIsFetching(false);
-        //     this.props.setUsers(data.items)
-        //    });
     }
 
     render() {

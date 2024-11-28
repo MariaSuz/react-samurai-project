@@ -7,10 +7,10 @@ import style from '../Common/FormsControls/FormsControls.module.css'
 // import CaptchaForm from '../Common/Captcha/Captcha';
 
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
 
     return(
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 {/*  Из-за redux-form меняю input  на Field*/}
                 <Field placeholder={'Login'} name={'login'} component={Input} validate={[requuiredField]}/>
@@ -21,9 +21,9 @@ const LoginForm = (props) => {
             <div>
                 <Field type={'checkbox'} name={'rememberMe'} component={Input}/> remember me
             </div>
-            {props.error?
+            {error ?
             <div className={style.some_error}>
-                {props.error} 
+                {error}
             </div>
             : '' }
             <div>

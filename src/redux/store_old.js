@@ -1,4 +1,4 @@
-
+// С чего все начиналось (не используется нигде, только для наглядности)
 import dialogsReducer from "./dialogs-reducer";
 import profileReducer from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
