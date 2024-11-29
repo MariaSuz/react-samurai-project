@@ -5,7 +5,7 @@ function Header(props) {
     return (
       <div className = {Headercss.main_header}>
         <img className = {Headercss.main_header_img} src="https://mychatte.ru/upload/iblock/31d/31d6b4d0766e973d25abebc4d4acc0ae.png" alt='headerimg'/>
-        <span>My firts React project (social network)</span> 
+        <span>My first React project (social network)</span>
         <div className = {Headercss.login}>
           { props.isAuth
             ? <div className={Headercss.logindiv}> {props.login} <button className={Headercss.logout_button} onClick={props.getLogOut}>Logout</button> </div>

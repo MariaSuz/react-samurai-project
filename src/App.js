@@ -6,13 +6,17 @@ import DialogsContainer from './components/dialogs/DialogsContainer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer.jsx';
 import NavbarContainer from './components/navbar/NavbarContainer.js';
-import LoginContainer from './components/login/LoginContainer';
-import React, { useEffect } from 'react';
+// import LoginContainer from './components/login/LoginContainer';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';
 // import {withAuthRedidirect}  from './hoc/AuthRedirect.js';
 import { compose } from 'redux';
 import { initializeApp } from './redux/app-reducer.js';
 // import Preloader from './components/Common/Preloader/Preloader.js';
+
+
+//ленивая загрузка, тк загружаются зависимости только при вызове.
+const LoginContainer = lazy(() => import('./components/login/LoginContainer'));
 
 function App(props) {
   useEffect(( ) => {
@@ -28,7 +32,11 @@ function App(props) {
               <Route path='/profile/:userId?' element = {<ProfileContainer />} />
               <Route path='/dialogs/*' element = {<DialogsContainer />} />
               <Route path='/users' element = {<UsersContainer />} />
-              <Route path='/login' element = {<LoginContainer />} />
+              <Route path='/login' element = {
+              <Suspense fallback={<div>Loading...</div>}>
+                <LoginContainer />
+              </Suspense>
+              }/>
           </Routes>
         </div>
       </div>
