@@ -22,7 +22,7 @@ function App(props) {
     props.initializeApp();
   }, [ ] )
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
     <div className='app-wrapper'>
         <HeaderContainer />
         <NavbarContainer />
