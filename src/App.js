@@ -3,7 +3,7 @@ import './App.css';
 import HeaderContainer from './components/header/HeaderContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 import DialogsContainer from './components/dialogs/DialogsContainer';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer.jsx';
 import NavbarContainer from './components/navbar/NavbarContainer.js';
 // import LoginContainer from './components/login/LoginContainer';
@@ -22,7 +22,7 @@ function App(props) {
     props.initializeApp();
   }, [ ] )
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
     <div className='app-wrapper'>
         <HeaderContainer />
         <NavbarContainer />
@@ -39,7 +39,7 @@ function App(props) {
           </Routes>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
