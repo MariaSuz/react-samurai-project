@@ -15,7 +15,7 @@ export function withRouter(Children){
 
 class ProfileContainer extends React.Component {
 
-    componentDidMount() {
+    refrefProfile() {
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authorizedUser;
@@ -27,9 +27,22 @@ class ProfileContainer extends React.Component {
         this.props.profileStatus(userId);
     }
 
+    componentDidMount() {
+        this.refrefProfile();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.match.params.userId != prevProps.match.params.userId) {
+        this.refrefProfile()}
+    }
+
     render () {
         return (
-            <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateProfileStatus={this.props.updateProfileStatus}/>
+            <Profile {...this.props}
+            profile={this.props.profile}
+            status={this.props.status}
+            updateProfileStatus={this.props.updateProfileStatus}
+            isOwner={!this.props.match.params.userId}/>
         )
     }
 }
