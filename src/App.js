@@ -14,7 +14,6 @@ import { compose } from 'redux';
 import { initializeApp } from './redux/app-reducer.js';
 // import Preloader from './components/Common/Preloader/Preloader.js';
 
-
 //ленивая загрузка, тк загружаются зависимости только при вызове.
 const LoginContainer = lazy(() => import('./components/login/LoginContainer'));
 
