@@ -29,12 +29,12 @@ function ProfileInfo(props) {
         }
     }
 
-    // const onSubmit = (formData) => {
-    //     console.log(formData);
-    //     // props.saveProfile(JSON.stringify(formData));
-    //     // setEditMode(false);
-    //     // props.profile(formData.name, formData.lookingJob, formData.professionalsSkils);
-    // }
+    const onSubmit = (formData) => {
+        props.saveProfile(formData);
+        // props.saveProfile(JSON.stringify(formData));
+        // setEditMode(false);
+        // props.profile(formData.name, formData.lookingJob, formData.professionalsSkils);
+    }
 
     return (
         <div>
@@ -52,11 +52,11 @@ function ProfileInfo(props) {
                 )
                 : ('') }
                 <ProfileStatus status={props.status} updateProfileStatus={props.updateProfileStatus}/>
-                <div>
+                {/* <div>
                     <span>Looking for a job: {props.lookingForAJob ? 'yes' : 'no'} </span>
-                 </div>
+                 </div> */}
                 {editMode
-                    ? <ProfileEditForm initialValues = {props.profile} profile = {props.profile}   saveProfile = {props.saveProfile}/> //initialValues устаревшее особенность редакс формы
+                    ? <ProfileEditForm initialValues = {props.profile} profile = {props.profile}   onSubmit = {onSubmit}/> //initialValues устаревшее особенность редакс формы
                     : <ProfileForm goToEditMode = { () => {setEditMode(true)} }  profile = {props.profile} isOwner = {props.isOwner}/>
                 }
             </div>

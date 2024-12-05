@@ -110,6 +110,7 @@ export const savePhoto = (file) => async (dispatch) => {
 }
 
 export const saveProfile = (profile) => async (dispatch, getState) => {
+  debugger
   const userId = getState().auth.userId ; //Достаем стейт текущий getState и из него вытаскиваем ID для обновления профиля
   let response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0 ) {
