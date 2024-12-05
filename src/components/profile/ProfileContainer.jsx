@@ -8,16 +8,16 @@ import LoginContainer from '../login/LoginContainer';
 import { withAuthRedidirect } from '../../hoc/AuthRedirect';
 
 
-export function withRouter(Children){
-    return(props)=>{
-        const match  = {params: useParams()};
-        return <Children {...props}  match={match}/>
+export function withRouter(Children) {
+    return (props) => {
+        const match = { params: useParams() };
+        return <Children {...props} match={match} />
     }
 }
 
 class ProfileContainer extends React.Component {
 
-    refrefProfile() {
+    refreshProfile() {
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authorizedUser;
@@ -30,12 +30,12 @@ class ProfileContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.refrefProfile();
+        this.refreshProfile();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.match.params.userId != prevProps.match.params.userId) {
-        this.refrefProfile()}
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+        this.refreshProfile()}
     }
 
     render () {
@@ -45,8 +45,7 @@ class ProfileContainer extends React.Component {
             status={this.props.status}
             updateProfileStatus={this.props.updateProfileStatus}
             isOwner={!this.props.match.params.userId}
-            savePhoto={this.props.savePhoto}
-            saveProfile={this.props.saveProfile} />
+            savePhoto={this.props.savePhoto} />
         )
     }
 }
@@ -65,5 +64,6 @@ let mapStateToProps = (state) => ({
 
 export default compose(
     connect(mapStateToProps, {profileMe, setUserId, profileStatus, updateProfileStatus, savePhoto, saveProfile}),
-    withRouter, withAuthRedidirect
+    withRouter,
+    withAuthRedidirect
   )(ProfileContainer);
