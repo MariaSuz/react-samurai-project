@@ -1,7 +1,7 @@
 import Login from './Login';
 import React from 'react';
 import { connect } from "react-redux";
-import { getLogin} from "../../redux/auth-reducer";
+import { getLogin, getCaptchaURL} from "../../redux/auth-reducer";
 import { compose } from 'redux';
 
 
@@ -10,7 +10,7 @@ let mapStateToProps = (state) => ({
     password: state.auth.password,
     rememberMe: state.auth.rememberMe,
     isAuth: state.auth.isAuth,
-    captcha: state.auth.captcha,
+    captchaUrl: state.auth. captchaUrl,
 })
 
 
@@ -22,12 +22,12 @@ class LoginContainer extends React.Component {
 
     render () {
         return (
-            <Login {...this.props} getLogin={this.props.getLogin}/>
+            <Login {...this.props} getLogin={this.props.getLogin} getCaptchaURL={this.props.getCaptchaURL}/>
         )
     }
 }
 
 
 export default compose(
-    connect(mapStateToProps, {getLogin})
+    connect(mapStateToProps, {getLogin, getCaptchaURL})
   )(LoginContainer);

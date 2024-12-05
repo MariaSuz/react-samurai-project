@@ -28,11 +28,17 @@ export const authAPI = {
     getAuth() {
         return instance.get(`auth/me`)
     },
-    getLogin(email, password, rememberMe = false, captcha = false) {
-        return instance.post(`/auth/login`, {email, password, rememberMe, captcha} );
+    getLogin(email, password, rememberMe = false, captcha = null) {
+        return instance.post(`auth/login`, {email, password, rememberMe, captcha} );
     },
     getLogOut() {
-        return instance.delete(`/auth/login`);
+        return instance.delete(`auth/login`);
+    }
+}
+
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get(`security/get-captcha-url` );
     }
 }
 
@@ -44,6 +50,19 @@ export const profileAPI = {
         return instance.get(`profile/status/` + userId)
     },
     updateStatus(status) {
-        return instance.put(`profile/status/`, {status : status})
+        return instance.put(`profile/status/`, {status : status})  //{status : status} - это означает отправку как json объект
     },
+    savePhoto(photoFile) {
+        const formData = new FormData();
+        formData.append('image', photoFile);
+
+        return instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
+    saveProfile(profile) {
+        return instance.put(`profile`, profile);
+    }
 }

@@ -6,7 +6,6 @@ import { requuiredField, maxLengthCreator } from '../../../utils/validators/vali
 import { Textarea } from '../../Common/FormsControls/FormsControls';
 
 function MyPost(props) {
-  debugger;
   let posts = props.posts.map( p =>
     <Post1 message={p.message} likeCount={p.likesCount} id={p.id} key={p.id}/>
   );

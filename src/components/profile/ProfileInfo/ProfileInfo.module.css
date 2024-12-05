@@ -5,8 +5,39 @@
 .descriptionblock {
     display: flex;
     flex-direction: column;
+    gap: 5px;
 }
 
 .userphoto{
     width: 30%;
+}
+
+.button_contacts {
+    max-width: 200px;
+    border-radius: 5px;
+    background-color:  #49c0f0;
+    color:#fafafa;
+    cursor: pointer;
+}
+
+.inputbtn{
+    max-width: 200px;
+    border-radius: 5px;
+    background-color:  #49c0f0;
+    color:#fafafa;
+    cursor: pointer;
+    border: 2px black solid;
+    padding: 4px;
+    position: relative;
+	display: inline-block;
+    margin-top: 10px;
+}
+
+input[type=file] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
 }
