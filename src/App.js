@@ -10,7 +10,7 @@ import React, { lazy, Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';
 // import {withAuthRedidirect}  from './hoc/AuthRedirect.js';
 import { compose } from 'redux';
-import { initializeApp } from './redux/app-reducer.js';
+import { initializeApp } from './redux/app-reducer.ts';
 import Preloader from './components/Common/Preloader/Preloader.js';
 
 

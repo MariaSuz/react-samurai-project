@@ -1,7 +1,7 @@
 
 import { connect } from "react-redux";
 // import { followActionCreator, setUsersActionCreator, unfollowActionCreator, currentPageActionCreator, settotalUsersCountActionCreator, toggleIsFetchingAC } from "../../redux/users-reducer";
-import { follow, unfollow, setCurrentPage, getUsersThunk} from "../../redux/users-reducer";
+import { follow, unfollow, setCurrentPage, getUsersThunk} from "../../redux/users-reducer.ts";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";

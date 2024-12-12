@@ -1,12 +1,16 @@
-import { getAuth } from "./auth-reducer";
+import { getAuth } from "./auth-reducer.ts";
 
 const SET_INITIALIZED = "app/SET_INITIALIZED";
 
-let initialState = {
+type initialStateType = {
+  initialize: boolean,
+}
+
+let initialState: initialStateType = {
     initialize: false
   };
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
         case SET_INITIALIZED: {
           return {...state, initialize: true}
@@ -16,7 +20,11 @@ const appReducer = (state = initialState, action) => {
     }
 }
 
-export let setInitialize = () => ({type: SET_INITIALIZED});
+
+type setInitializeActionType = {
+  type:  typeof SET_INITIALIZED, //typeof отличный от js, тк возвращаем объект
+}
+export let setInitialize = ():setInitializeActionType => ({type: SET_INITIALIZED});
 
 // export const initializeApp = () => (dispatch) => {
 //   let promise = dispatch(getAuth());
@@ -25,7 +33,7 @@ export let setInitialize = () => ({type: SET_INITIALIZED});
 //       dispatch(setInitialize());
 //     });
 // }
-export const initializeApp = () => async(dispatch) => {
+export const initializeApp = () => async(dispatch: any) => {
   await (dispatch(getAuth()));
   dispatch(setInitialize());
 }

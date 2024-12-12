@@ -2,9 +2,9 @@
   "name": "my-app",
   "jest": {
     "moduleNameMapper": {
-    "^axios$": "axios/dist/node/axios.cjs"
-  }
- },
+      "^axios$": "axios/dist/node/axios.cjs"
+    }
+  },
   "homepage": "https://MariaSuz.github.io/react-samurai-project",
   "version": "0.1.0",
   "private": true,
@@ -13,6 +13,10 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.13",
+    "@types/react-dom": "^18.3.1",
     "axios": "^1.7.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -23,6 +27,7 @@
     "redux-form": "^8.3.10",
     "redux-thunk": "^3.1.0",
     "reselect": "^5.1.1",
+    "typescript": "^5.7.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

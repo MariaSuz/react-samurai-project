@@ -1,7 +1,7 @@
 import Login from './Login';
 import React from 'react';
 import { connect } from "react-redux";
-import { getLogin, getCaptchaURL} from "../../redux/auth-reducer";
+import { getLogin, getCaptchaURL} from "../../redux/auth-reducer.ts";
 import { compose } from 'redux';
 
 
