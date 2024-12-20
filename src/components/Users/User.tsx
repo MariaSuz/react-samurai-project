@@ -1,10 +1,17 @@
 import styles from './users.module.css'
 import userPhoto from '../../assets/images/user.png';
 import { NavLink } from 'react-router-dom';
+import React, { FC } from 'react';
 
+type PropsType = {
+    followingInProgress: any,
+    user: any,
+    unfollow: (userId: number) => void,
+    follow: (userId: number) => void
 
+}
 
-let User = ({user, ...props}) => {
+let User: FC<PropsType> = ({user, followingInProgress, unfollow, follow}) => {
     return(
         <div className={styles.maindiv} key={user.id}>
         <div className={styles.leftcolumn}>
@@ -16,11 +23,11 @@ let User = ({user, ...props}) => {
                 {user.followed
                 // ?  <button className={styles.buttonfollow} onClick={() => {props.unfollow(u.id)}}>Follow</button>
                 // :  <button className={styles.buttonunfollow} onClick={() => {props.follow(u.id)}}>Unfollow</button>}
-                ?  <button disabled={props.followingInProgress.some(id => id === user.id)} className={styles.buttonfollow} onClick={() => {
-                    props.unfollow(user.id);
+                ?  <button disabled={followingInProgress.some(id => id === user.id)} className={styles.buttonfollow} onClick={() => {
+                    unfollow(user.id);
                 }}>Unfollow</button>
-                :  <button disabled={props.followingInProgress.some(id => id === user.id)} className={styles.buttonunfollow} onClick={() => {
-                    props.follow(user.id);
+                :  <button disabled={followingInProgress.some(id => id === user.id)} className={styles.buttonunfollow} onClick={() => {
+                    follow(user.id);
                       }}>Follow</button>}
 
             </span>

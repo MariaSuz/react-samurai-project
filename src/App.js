@@ -4,7 +4,7 @@ import HeaderContainer from './components/header/HeaderContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 import DialogsContainer from './components/dialogs/DialogsContainer';
 import { Routes, Route, HashRouter } from 'react-router-dom';
-import UsersContainer from './components/Users/UsersContainer.jsx';
+import UsersContainer from './components/Users/UsersContainer.tsx';
 import NavbarContainer from './components/navbar/NavbarContainer.js';
 import React, { lazy, Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';

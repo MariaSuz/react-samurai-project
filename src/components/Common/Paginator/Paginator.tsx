@@ -8,9 +8,10 @@ type PropsType = {
     onPageChanged: () => void,
 }
 
+
 let Paginator: React.FC<PropsType> = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
     let pageCount = Math.ceil(totalUsersCount / pageSize);
-    let pages = [];
+    let pages = Array(); // [] имправила, чтобы убрать ошибку TS "ages.push(i); аргумент типа number нельзя назначить never"
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i);
     }
@@ -19,8 +20,8 @@ let Paginator: React.FC<PropsType> = ({totalUsersCount, pageSize, currentPage, o
     // let countOfItemsInPage = 5;
     // let countOfItems = Math.ceil(pageCount / countOfItemsInPage);
 
-    let [start, setStart] = useState(0);
-    let [end, setEnd] = useState(10);
+    let [start, setStart] = useState<number>(0);
+    let [end, setEnd] = useState<number>(10);
 
     function prevItems() {
         if (start <= 0) {
@@ -57,7 +58,7 @@ let Paginator: React.FC<PropsType> = ({totalUsersCount, pageSize, currentPage, o
         setEnd(end);
     }
 
-    function updateItems(start, end) {
+    function updateItems(start: number, end: number) {
         let node = pages.slice(start, end);
         return node.map(p => {
             return <span key={p.id} className={currentPage === p && styles.selectedPage}
