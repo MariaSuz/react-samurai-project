@@ -139,7 +139,7 @@ export const getUsersThunk = (currentPage: number, pageSize: number): ThunkType 
   }
 }
 
-const _followUnfollowFlow = async (dispatch: DispatchType, userID: number, apiMethod: any, actionCreator: any) => {
+const _followUnfollowFlow = async (dispatch: DispatchType, userID: number, apiMethod: any, actionCreator: (userID: number) => followSuccessActionType | unfollowSuccessActionType) => {
   dispatch(toggleIsFetching(true))
     let response = await apiMethod(userID);
     if (response.data.resultCode === 0) {
