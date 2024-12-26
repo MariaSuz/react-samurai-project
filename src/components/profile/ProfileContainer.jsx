@@ -1,10 +1,10 @@
 import Profile from './Profile';
 import React from 'react';
 import { connect } from "react-redux";
-import { profileMe, setUserId, profileStatus, updateProfileStatus, savePhoto, saveProfile } from "../../redux/profile-reducer.ts";
+import { actions } from "../../redux/profile-reducer.ts";
 import {useParams} from "react-router-dom";
 import { compose } from "redux";
-import LoginContainer from '../login/LoginContainer';
+import LoginContainer from '../login/LoginContainer.tsx';
 import { withAuthRedidirect } from '../../hoc/AuthRedirect';
 
 
@@ -63,7 +63,7 @@ let mapStateToProps = (state) => ({
 // export default connect(mapStateToProps, {profileMe, setUserId}) (WithUrlDataContainerComponent);
 
 export default compose(
-    connect(mapStateToProps, {profileMe, setUserId, profileStatus, updateProfileStatus, savePhoto, saveProfile}),
+    connect(mapStateToProps, {...actions}),
     withRouter,
     withAuthRedidirect
   )(ProfileContainer);

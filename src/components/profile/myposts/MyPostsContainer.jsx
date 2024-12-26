@@ -1,5 +1,5 @@
 import { compose } from 'redux';
-import { addPost } from '../../../redux/profile-reducer.ts';
+import { actions } from '../../../redux/profile-reducer.ts';
 import MyPosts from './MyPosts';
 import { connect } from 'react-redux';
 import React from 'react';
@@ -22,7 +22,7 @@ class MyPostsContainer extends React.Component {
 
 
 export default compose(
-  connect(mapStateToProps,  {addPost})
+  connect(mapStateToProps,  {...actions})
 )(MyPostsContainer);
 
 

@@ -1,20 +1,23 @@
-import Login from './Login';
+import Login from './Login.tsx';
 import React from 'react';
 import { connect } from "react-redux";
 import { getLogin, getCaptchaURL} from "../../redux/auth-reducer.ts";
 import { compose } from 'redux';
+import { AppStateType } from '../../redux/redux-store.ts';
 
 
-let mapStateToProps = (state) => ({
-    email: state.auth.email,
-    password: state.auth.password,
-    rememberMe: state.auth.rememberMe,
+let mapStateToProps = (state: AppStateType) => ({
     isAuth: state.auth.isAuth,
     captchaUrl: state.auth. captchaUrl,
 })
 
 
-class LoginContainer extends React.Component {
+type PropsType = {
+    getLogin: (email: string, password: string, rememberMe: boolean) => void,
+    getCaptchaURL: () => void,
+}
+
+class LoginContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         this.props.getLogin(this.props.email, this.props.password, this.props.rememberMe);
@@ -22,7 +25,7 @@ class LoginContainer extends React.Component {
 
     render () {
         return (
-            <Login {...this.props} getLogin={this.props.getLogin} getCaptchaURL={this.props.getCaptchaURL}/>
+            <Login {...this.props} getLogin={this.props.getLogin} getCaptchaURL={this.props.getCaptchaURL} />
         )
     }
 }

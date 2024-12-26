@@ -1,4 +1,6 @@
-import profileReducer, { addPost, deletePost } from "./profile-reducer";
+import profileReducer, { actions } from "./profile-reducer";
+//Не видит, поэтому импорт. ошибка ушла
+import { expect, test } from '@jest/globals';
 
 let state = {
   postData: [
@@ -6,12 +8,15 @@ let state = {
     {id: 2, message: 'I want car', likesCount: 110},
     {id: 3, message: 'Hello', likesCount: 10},
     {id: 4, message: 'Its my firts post', likesCount: 1},
-  ]
+  ],
+  profile: null,
+  status: '' ,
+  userId: 31414 ,
 }
 
 test('new post length ++', () => {
   //1. test data
-  let action = addPost('new post');
+  let action = actions.addPost('new post');
 
   //2. action
   let newState = profileReducer (state, action);
@@ -22,7 +27,7 @@ test('new post length ++', () => {
 
 test('post 4 messages should be correct', () => {
   //1. test data
-  let action = addPost('new post');
+  let action = actions.addPost('new post');
 
   //2. action
   let newState = profileReducer (state, action);
@@ -34,7 +39,7 @@ test('post 4 messages should be correct', () => {
 
 test('after deleting length of message sholud be decrement', () => {
   //1. test data
-  let action = deletePost(1);
+  let action = actions.deletePost(1);
 
   //2. action
   let newState = profileReducer (state, action);

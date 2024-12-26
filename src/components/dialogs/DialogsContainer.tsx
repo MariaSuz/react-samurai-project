@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import { addMessages} from '../../redux/dialogs-reducer.ts';
-import Dialogs from './Dialogs';
-import {withAuthRedidirect}  from '../../hoc/AuthRedirect';
+import { actions } from '../../redux/dialogs-reducer.ts';
+import Dialogs from './Dialogs.tsx';
+import {withAuthRedidirect}  from '../../hoc/AuthRedirect.js';
 import { compose } from 'redux';
 import React from 'react';
+import { AppStateType } from '../../redux/redux-store.ts';
 
 
 // function DialogsContainer() {
@@ -25,10 +26,9 @@ import React from 'react';
 // }
 //   </StoreContext.Consumer>
 // }
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:AppStateType) => {
   return {
     messagesPage: state.messagesPage,
-    // newPostMessage: state.messagesPage.newPostMessage,
   }
 }
 
@@ -57,7 +57,7 @@ class DialogsContainer extends React.Component {
 
 
 export default compose(
-  connect(mapStateToProps,  {addMessages}),
+  connect(mapStateToProps,  {...actions}),
   withAuthRedidirect
 )(DialogsContainer);
 

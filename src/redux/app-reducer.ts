@@ -1,18 +1,15 @@
 import { getAuth } from "./auth-reducer.ts";
+import { InferActionsTypes } from "./redux-store.ts";
 
-const SET_INITIALIZED = "app/SET_INITIALIZED";
-
-type initialStateType = {
-  initialize: boolean,
-}
-
-let initialState: initialStateType = {
+let initialState = {
     initialize: false
   };
 
-const appReducer = (state = initialState, action: any): initialStateType => {
+export  type initialStateType = typeof initialState;
+
+const appReducer = (state = initialState, action: ActionsTypes): initialStateType => {
     switch (action.type) {
-        case SET_INITIALIZED: {
+        case "app/SET_INITIALIZED": {
           return {...state, initialize: true}
         }
         default:
@@ -20,22 +17,14 @@ const appReducer = (state = initialState, action: any): initialStateType => {
     }
 }
 
-
-type setInitializeActionType = {
-  type:  typeof SET_INITIALIZED, //typeof отличный от js, тк возвращаем объект
+export const actions = {
+  setInitialize: ()=> ({type: "app/SET_INITIALIZED"} as const)
 }
-export let setInitialize = ():setInitializeActionType => ({type: SET_INITIALIZED});
 
-// export const initializeApp = () => (dispatch) => {
-//   let promise = dispatch(getAuth());
-//   Promise.all([promise])
-//     .then(() => {
-//       dispatch(setInitialize());
-//     });
-// }
+type ActionsTypes = InferActionsTypes<typeof actions>
 export const initializeApp = () => async(dispatch: any) => {
   await (dispatch(getAuth()));
-  dispatch(setInitialize());
+  dispatch(actions.setInitialize());
 }
 
 export default appReducer;

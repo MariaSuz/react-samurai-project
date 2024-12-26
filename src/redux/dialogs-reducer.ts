@@ -1,5 +1,5 @@
-const ADD_MESSAGES = 'dialogs/ADD-MESSAGES';
-// const UPDATE_NEW_POST_MESSAGES = 'UPDATE-NEW-POST-MESSAGES';
+import { InferActionsTypes } from "./redux-store";
+
 
 type DialogType = {
   id: number,
@@ -54,33 +54,28 @@ export type initialStateType = typeof initialState
 
 // Оптимизируем
 
-const dialogsReducer = (state = initialState, action: any): initialStateType => {
+const dialogsReducer = (state = initialState, action: ActionsTypes): initialStateType => {
   switch (action.type) {
-      case ADD_MESSAGES: {
+      case 'dialogs/ADD_MESSAGES': {
         let mes = action.newMessageBody;
         return {...state, messagesData: [...state.messagesData, {id: 5, message: mes}]}
       }
-      // case UPDATE_NEW_POST_MESSAGES: {
-      //   return {...state, newMessageBody: action.newText }
-      // }
       default:
         return state;
   }
 }
 
-type addMessagesACType = {
-  type: typeof ADD_MESSAGES,
-  newMessageBody: string
+export const actions = {
+  addMessages: (newMessageBody: string) => ({type: 'dialogs/ADD_MESSAGES', newMessageBody} as const)
 }
 
-//Сокращаем (тк 1 значение возвращает)
-export let addMessages = (newMessageBody: string): addMessagesACType => ({type: ADD_MESSAGES, newMessageBody});
- 
 // export let updateNewPostMessageActionCreator = (text) => {
 //   return {
 //     type: UPDATE_NEW_POST_MESSAGES,
 //     newText: text
 //   }
 // }
+
+type ActionsTypes = InferActionsTypes<typeof actions>
 
 export default dialogsReducer;

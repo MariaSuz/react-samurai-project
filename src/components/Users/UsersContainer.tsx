@@ -1,6 +1,6 @@
 
 import { connect } from "react-redux";
-import { follow, unfollow, setCurrentPage, getUsersThunk} from "../../redux/users-reducer.ts";
+import { follow, unfollow, getUsersThunk, actions } from "../../redux/users-reducer.ts";
 import React from "react";
 import Users from "./Users.tsx";
 import Preloader from "../Common/Preloader/Preloader.js";
@@ -88,7 +88,7 @@ export default compose(
     connect(mapStateToProps,  {
         follow,
         unfollow,
-        setCurrentPage,
+        ...actions,
         getUsersThunk
     })
   )(UsersAPIComponent);

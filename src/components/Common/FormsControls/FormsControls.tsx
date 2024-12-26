@@ -1,5 +1,7 @@
 import { Field } from 'redux-form';
 import styles from './FormsControls.module.css'
+import { FieldValidatorType } from '../../../utils/validators/validators';
+import React from 'react';
 
 export const Textarea = ({input, meta, ...props}) => {
     const hasError = meta.touched && meta.error ;
@@ -22,6 +24,6 @@ export const Input = ({input, meta, ...props}) => {
     )
 }
 
-export const createField = (placeholder, name, validators, component) => {
+export const createField = (placeholder: string, name: string, validators: Array<FieldValidatorType>, component: React.FC) => {
     <Field placeholder={placeholder} name={name} component={component} validate={validators}/>
 }

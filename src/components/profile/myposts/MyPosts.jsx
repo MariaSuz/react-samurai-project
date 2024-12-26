@@ -2,8 +2,8 @@ import { Field, reduxForm } from 'redux-form';
 import MyPostCss from'./MyPosts.module.css';
 import Post1 from './Post/Post1';
 import React from 'react';
-import { requuiredField, maxLengthCreator } from '../../../utils/validators/validators';
-import { Textarea } from '../../Common/FormsControls/FormsControls';
+import { requuiredField, maxLengthCreator } from '../../../utils/validators/validators.ts';
+import { Textarea } from '../../Common/FormsControls/FormsControls.tsx';
 
 function MyPost(props) {
   let posts = props.posts.map( p =>

@@ -2,7 +2,7 @@
 import './App.css';
 import HeaderContainer from './components/header/HeaderContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
-import DialogsContainer from './components/dialogs/DialogsContainer';
+import DialogsContainer from './components/dialogs/DialogsContainer.tsx';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer.tsx';
 import NavbarContainer from './components/navbar/NavbarContainer.js';
@@ -15,7 +15,7 @@ import Preloader from './components/Common/Preloader/Preloader.js';
 
 
 //ленивая загрузка, тк загружаются зависимости только при вызове.
-const LoginContainer = lazy(() => import('./components/login/LoginContainer'));
+const LoginContainer = lazy(() => import('./components/login/LoginContainer.tsx'));
 
 
 
