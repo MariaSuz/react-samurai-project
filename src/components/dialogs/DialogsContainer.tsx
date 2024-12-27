@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { actions } from '../../redux/dialogs-reducer.ts';
 import Dialogs from './Dialogs.tsx';
-import {withAuthRedidirect}  from '../../hoc/AuthRedirect.js';
+import {withAuthRedidirect}  from '../../hoc/AuthRedirect.tsx';
 import { compose } from 'redux';
 import React from 'react';
 import { AppStateType } from '../../redux/redux-store.ts';

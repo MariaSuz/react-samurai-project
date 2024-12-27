@@ -1,6 +1,7 @@
 import perloader from "../../../assets/images/loading.svg";
+import React from 'react';
 
-let Preloader = (props) => {
+const Preloader: React.FC = () => {
     return <span><img src={perloader}  alt='isFetching' /></span>
 }
 

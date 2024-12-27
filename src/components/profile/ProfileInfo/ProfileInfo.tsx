@@ -1,14 +1,22 @@
-import Preloader from '../../Common/Preloader/Preloader';
+import Preloader from '../../Common/Preloader/Preloader.tsx';
 import ProfileInfoCSS from'./ProfileInfo.module.css';
-import ProfileStatus from './ProfileStatus.jsx';
+import ProfileStatus from './ProfileStatus.tsx';
 import userPhoto from '../../../assets/images/user.png';
-import ProfileEditForm from './ProfileEditForm.jsx';
-import { useState } from 'react';
-import ProfileForm from './ProfileForm.jsx';
+import ProfileEditForm from './ProfileEditForm.tsx';
+import { ChangeEvent, useState } from 'react';
+import ProfileForm from './ProfileForm.tsx';
+import React from 'react';
+import { ProfileType } from '../../../types/types.js';
 
-
-
-function ProfileInfo(props) {
+type PropsType = {
+    profile: ProfileType | null
+    status: string
+    updateProfileStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType) => Promise<any>
+}
+const ProfileInfo: React.FC<PropsType> = (props) =>{
 
     let [editMode, setEditMode] = useState(false);
 
@@ -17,30 +25,21 @@ function ProfileInfo(props) {
         return <Preloader />
     }
 
-    // let contacts = props.profile.contacts;
-    // Object.keys(contacts).forEach(function(key) {
-    //     if(contacts[key] === null) {
-    //         contacts[key] = 'none';
-    //     }
-    // })
-    const onMainPhotoSelected = (e) => {
-        if(e.target.files.length) {
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files?.length) {  //Если файлы есть, то выполняем
             props.savePhoto(e.target.files[0]);
         }
     }
 
-    const onSubmit = (formData) => {
+    const onSubmit = (formData: ProfileType) => {
         props.saveProfile(formData);
-        // props.saveProfile(JSON.stringify(formData));
-        // setEditMode(false);
-        // props.profile(formData.name, formData.lookingJob, formData.professionalsSkils);
     }
+
 
     return (
         <div>
             <div className={ProfileInfoCSS.descriptionblock}>
                 <span><b>Full Name:</b> {props.profile.fullName}</span>
-                <span>{props.profile.aboutMe}</span>
                 <img src={props.profile.photos.large || userPhoto} className={ProfileInfoCSS.userphoto} alt="user-photo" />
                 {props.isOwner
                 ? (  <div>

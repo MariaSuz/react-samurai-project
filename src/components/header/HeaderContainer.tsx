@@ -1,11 +1,13 @@
-import Header from'./Header';
+import Header from'./Header.tsx';
 import React from 'react';
 import { connect } from 'react-redux';
 import { getLogOut } from '../../redux/auth-reducer.ts';
+import { AppStateType } from '../../redux/redux-store.ts';
+import { MapPropsType, DispatchPropsType } from './Header.tsx';
 
 
 
-class HeaderContainer extends React.Component {
+class HeaderContainer extends React.Component<MapPropsType & DispatchPropsType> {
   // componentDidMount() {
   //   // axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
   //   //   withCredentials: true
@@ -20,14 +22,14 @@ class HeaderContainer extends React.Component {
   // }
 
   render () {
-    return (<Header {...this.props}/>)
+    return <Header {...this.props}/>
   }
 
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   isAuth: state.auth.isAuth,
-  login: state.auth.login
+  login: state.auth.login,
 });
 
-export default connect (mapStateToProps, {getLogOut}) (HeaderContainer);
+export default connect<MapPropsType, DispatchPropsType, {}, AppStateType> (mapStateToProps, {getLogOut}) (HeaderContainer);

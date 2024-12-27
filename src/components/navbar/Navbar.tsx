@@ -1,10 +1,21 @@
 import { NavLink } from 'react-router-dom';
 import NavbarCSS from'./Navbar.module.css';
-import FriendsList from './FriendsList/FriendsList';
+import FriendsList from './FriendsList/FriendsList.tsxs';
+import React from 'react';
 
-function Navbar(props) {
+type PropsType = {
+  sidebar: sidebarDataType,
+
+}
+type sidebarDataType = {
+  id: number,
+  names: string
+}
+
+
+const Navbar: React.FC<PropsType> = (props) => {
    let state = props.sidebar;
-   let friendListElements = state.sidebarData.map(n => <FriendsList names={n.names} id={n.id} key={n.id}/>);
+  //  let friendListElements = state.sidebarData.map(n => <FriendsList names={n.names} id={n.id} key={n.id}/>);
 
     return (
      <nav className = {NavbarCSS.navlist}>
@@ -13,9 +24,9 @@ function Navbar(props) {
           <li><NavLink  className={({isActive}) => isActive ? NavbarCSS.active : ''}to='/dialogs'>Dialogs</NavLink> </li>
           <li><NavLink  className={({isActive}) => isActive ? NavbarCSS.active : ''}to='/users'>Find Users</NavLink> </li>
         </ul>
-        <div className = {NavbarCSS.frindslist}>
+        {/* <div className = {NavbarCSS.frindslist}>
          {friendListElements}
-        </div>
+        </div> */}
       </nav> 
     )
   }

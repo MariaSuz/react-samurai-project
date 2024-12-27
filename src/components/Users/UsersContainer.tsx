@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { follow, unfollow, getUsersThunk, actions } from "../../redux/users-reducer.ts";
 import React from "react";
 import Users from "./Users.tsx";
-import Preloader from "../Common/Preloader/Preloader.js";
+import Preloader from "../Common/Preloader/Preloader.tsx";
 import { compose } from "redux";
 import { getCurrentPage, getUsers, getPageSize,  getTotalUsersCount, getFetching, getFollowingInProgress } from "../../redux/users-selectors.ts";
 import { UsersType } from "../../types/types.ts";

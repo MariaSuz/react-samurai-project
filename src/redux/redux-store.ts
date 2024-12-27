@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Action, applyMiddleware, combineReducers } from 'redux'
 import profileReducer from './profile-reducer.ts';
 import dialogsReducer from './dialogs-reducer.ts';
-import sidebarReducer from './sidebar-reducer.js';
+import sidebarReducer from './sidebar-reducer.ts';
 import usersReducer from './users-reducer.ts';
 import authReducer from './auth-reducer.ts';
 import {thunk, ThunkAction} from 'redux-thunk';

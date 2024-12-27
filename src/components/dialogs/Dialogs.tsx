@@ -1,10 +1,16 @@
+import { initialStateType } from '../../redux/dialogs-reducer';
 import DialogsCSS from './Dialogs.module.css';
-import Itemsmany from './items/Itemsmany';
-import DioMessages from './mesages/Messages';
+import Itemsmany from './items/Itemsmany.tsx';
+import DioMessages from './mesages/Messages.tsx';
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-function Dialogs(props) {
+type OwnPropsType = {
+  messagesPage: initialStateType
+  addMessages: (newMessageBody: string) => void
+}
+
+const Dialogs:React.FC<OwnPropsType> = (props) => {
   let state = props.messagesPage;
 
   let dilogsElements = state.dialogsData.map(dialog =>
@@ -12,19 +18,13 @@ function Dialogs(props) {
   );
 
   let messagesElements = state.messagesData.map(message =>
-    <DioMessages message={message.message} id={message.id} key={message.id}/>
+    <DioMessages message={message.message} key={message.id}/>
   );
 
-// let newMessagesPost = React.createRef();
 
- let addMessages = (values) => {
+ let addMessages = (values: {newMessageBody: string}) => {
   props.addMessages(values.newMessageBody);
  }
-
-//  let onPostChange = () => {
-//   let messages = newMessagesPost.current.value;
-//   props.updateNewPostMessage(messages);
-// }
 
 
 const DialogsForm = (props) => {
@@ -53,16 +53,3 @@ const DialogsForm = (props) => {
 
   export default Dialogs;
 
-
-  // return (
-  //   <div className={DialogsCSS.center}>
-  //       <div className={DialogsCSS.dialogs}>
-  //       {dilogsElements}
-  //       </div>
-  //       <div className={DialogsCSS.messages}>
-  //         {messagesElements}
-  //         <textarea className={DialogsCSS.textarea} ref={newMessagesPost} onChange={onPostChange} value={props.newPostMessage}/>
-  //         <button className={DialogsCSS.but} onClick={addMessages}>Add message</button>
-  //       </div>
-  //   </div>
-  // )

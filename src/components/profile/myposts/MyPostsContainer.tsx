@@ -1,17 +1,18 @@
 import { compose } from 'redux';
 import { actions } from '../../../redux/profile-reducer.ts';
-import MyPosts from './MyPosts';
+import MyPosts, { MapPropsType, DispatchPropsType } from './MyPosts.tsx';
 import { connect } from 'react-redux';
 import React from 'react';
+import { AppStateType } from '../../../redux/redux-store.ts';
 
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType) => {
   return {
     posts: state.profilePage.postData,
   }
 }
 
-class MyPostsContainer extends React.Component {
+class MyPostsContainer extends React.Component<MapPropsType & DispatchPropsType> {
 
   render () {
       return (

@@ -1,8 +1,14 @@
 
+import { ProfileType } from '../../../types/types';
 import ProfileInfoCSS from'./ProfileInfo.module.css';
+import React from 'react';
 
-function ProfileForm(props) {
+type PropsType = {
+    profile: ProfileType
+    isOwner: boolean
+}
 
+const ProfileForm: React.FC<PropsType> = (props) => {
     return (
         <div>
             <form>

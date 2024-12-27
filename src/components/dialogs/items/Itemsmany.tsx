@@ -1,8 +1,13 @@
 import ItemsCSS from './Item.module.css';
 import { NavLink} from 'react-router-dom';
+import React from 'react';
 
+export type PropsType = {
+  id: number
+  names: string
+}
 
-function Itemsmany(props) {
+const Itemsmany: React.FC<PropsType> = (props) => {
     let path = '/dialogs/' + props.id;
     return (
     <div className={ItemsCSS.names}>

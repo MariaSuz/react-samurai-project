@@ -5,7 +5,7 @@ type PropsType = {
     totalUsersCount: number,
     pageSize: number,
     currentPage: number,
-    onPageChanged: () => void,
+    onPageChanged: (pageNumber: number) => void,
 }
 
 

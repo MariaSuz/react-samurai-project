@@ -29,16 +29,12 @@ const authReducer = (state = initialState, action: ActionsTypes):initialStateTyp
 
 export const actions = {
   setAuthUserData: (userId: number | null, login: string | null, email: string | null, isAuth: boolean) => ({type: "auth/SET_USER_DATA", payload: {userId, login, email, isAuth}} as const),
-  getCaptchaSuccess: (captchaUrl: string) => ({type:  "auth/GET_CAPTCHA_URL", payload: {captchaUrl}}as const)
+  getCaptchaSuccess: (captchaUrl: string) => ({type:  "auth/GET_CAPTCHA_URL", payload: {captchaUrl}} as const)
 }
 
 type ActionsTypes = InferActionsTypes<typeof actions>
-
-export default authReducer;
-
-type GetStateType = () => AppStateType;
 type ThunkType = BaseThunkType<ActionsTypes>;
-type DispatchType = Dispatch<ActionsTypes>;
+
 
 export const getAuth = ():ThunkType => async (dispatch) => {
     let meData = await authAPI.getAuth();
@@ -72,8 +68,7 @@ export const getLogin = (email: string, password: string, rememberMe: boolean, c
         dispatch(getCaptchaURL());
       }
       let message = loginData.messages.length > 0 ? loginData.messages[0] : 'Some error';
-      let action = stopSubmit('login', {_error: message});
-      dispatch(action);
+      dispatch(stopSubmit('login', {_error: message}));
     }
 };
 export const getCaptchaURL = ():ThunkType => async (dispatch) => {
@@ -89,3 +84,6 @@ export const getLogOut = ():ThunkType => async (dispatch) => {
       dispatch(actions.setAuthUserData(null, null, null, false));
     }
 };
+
+
+export default authReducer;
