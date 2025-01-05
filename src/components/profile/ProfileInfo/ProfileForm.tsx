@@ -4,7 +4,7 @@ import ProfileInfoCSS from'./ProfileInfo.module.css';
 import React from 'react';
 
 type PropsType = {
-    profile: ProfileType
+    profile: ProfileType | null,
     isOwner: boolean
 }
 
