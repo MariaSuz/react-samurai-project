@@ -41,3 +41,9 @@ input[type=file] {
 	width: 0;
 	height: 0;
 }
+
+.description {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

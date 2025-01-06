@@ -6,9 +6,9 @@ import React from 'react';
 
 
 function ProfileEditForm(props) {
-
+    const { handleSubmit, profile } = props;
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <span>Full Name: </span>
                 <Field placeholder={'Full name'} name={'fullName'} component={Input} />
@@ -22,18 +22,20 @@ function ProfileEditForm(props) {
                 <Field placeholder={'Write your skills'}  name={'lookingForAJobDescription'} component={Textarea} />
             </div>
             <div>
-                <span>About skills:</span>
+                <span>About me:</span>
                 <Field placeholder={'About you'}  name={'aboutMe'} component={Textarea} />
             </div>
             <div>
-                <span>About me:</span>
-                {Object.keys(props.profile.contacts).map(key => {
-                        return <div key={key}>
-                            {key} : {<Field name={'contacts.' + key} component={Input} />}
-                            </div>
+                <span>Contacts:</span>
+                {Object.keys(profile.contacts).map(key => {
+                        return(
+                        <div key={key}>
+                            {key} : {<Field name={`contacts.${key}`} component={Input} />}
+                        </div>
+                        );
                     })}
             </div>
-              <button onClick = {props.onSubmit} className={ProfileInfoCSS.button_contacts}>Save profile</button>
+              <button type="submit" className={ProfileInfoCSS.button_contacts}>Save profile</button>
         </form>
     )
   }

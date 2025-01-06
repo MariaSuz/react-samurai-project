@@ -32,7 +32,9 @@ const ProfileInfo: React.FC<PropsType> = (props) =>{
     }
 
     const onSubmit = (formData: ProfileType) => {
-        props.saveProfile(formData);
+        // props.saveProfile(formData);
+        const sanitizedData = { ...formData };
+        props.saveProfile(sanitizedData);
     }
 
 
