@@ -60,7 +60,7 @@ export const actions = {
   setUsers: (users: Array<UsersType>)=> ({type: 'users/SET_USERS', users} as const),
   setCurrentPage: (currentPage: number)=> ({type: 'users/SET_CURRENT_PAGE', currentPage} as const),
   settotalUsersCount: (totalUsersCount: number) => ({type: 'users/SET_TOTAL_USERS', count: totalUsersCount} as const),
-  toggleIsFetching: (isFetching: boolean) => ({type: 'users/TOGGLE_IS_FETCHINGS', isFetching}as const),
+  toggleIsFetching: (isFetching: boolean) => ({type: 'users/TOGGLE_IS_FETCHINGS', isFetching} as const),
   togglefollowingInProgress: (isFetching: boolean, userId:number) => ({type: 'users/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId} as const)
 }
 
@@ -80,10 +80,11 @@ export const getUsersThunk = (currentPage: number, pageSize: number): ThunkType 
   }
 }
 
-const _followUnfollowFlow = async (dispatch: DispatchType, userID: number, apiMethod: (userId: number) => Promise<ResponseType>, actionCreator: (userID: number) => ActionsTypes) => {
-  dispatch(actions.toggleIsFetching(true))
-    let response = await apiMethod(userID);
-    if (response.resultCode === 0) {
+const _followUnfollowFlow = async (dispatch: DispatchType, userID: number,
+  apiMethod: (userId: number) => Promise<ResponseType>, actionCreator: (userID: number) => ActionsTypes) => {
+  dispatch(actions.togglefollowingInProgress(true, userID))
+    let data = await apiMethod(userID);
+    if (data.resultCode === 0) {
         dispatch(actionCreator(userID));
     }
     dispatch(actions.togglefollowingInProgress(false, userID));
