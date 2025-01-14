@@ -81,7 +81,6 @@ export const getUsersThunk = (currentPage: number, pageSize: number, filter: Fil
   return async (dispatch, getState) => {
   dispatch(actions.toggleIsFetching(true));
   dispatch(actions.setCurrentPage(currentPage));
-  debugger
   dispatch(actions.setFilter(filter));
 
   let data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
