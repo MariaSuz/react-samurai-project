@@ -1,50 +1,61 @@
 
 import { connect } from "react-redux";
-import { follow, unfollow, getUsersThunk, actions } from "../../redux/users-reducer.ts";
+import { follow, unfollow, getUsersThunk, actions, FilterType } from "../../redux/users-reducer.ts";
 import React from "react";
 import Users from "./Users.tsx";
 import Preloader from "../Common/Preloader/Preloader.tsx";
 import { compose } from "redux";
-import { getCurrentPage, getUsers, getPageSize,  getTotalUsersCount, getFetching, getFollowingInProgress } from "../../redux/users-selectors.ts";
+import { getCurrentPage, getUsers, getPageSize,  getTotalUsersCount, getFetching, getFollowingInProgress, getUsersFilter } from "../../redux/users-selectors.ts";
 import { UsersType } from "../../types/types.ts";
 import { AppStateType } from "../../redux/redux-store.ts";
 
 
-let mapStateToProps = (state: AppStateType ) => {
+let mapStateToProps = (state: AppStateType ): MapStatePropsType => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getFetching(state),
-        followingInProgress: getFollowingInProgress(state)
+        followingInProgress: getFollowingInProgress(state),
+        filter: getUsersFilter(state),
     }
 }
 
-type PropsType = {
+type MapStatePropsType = {
     currentPage: number,
     pageSize: number,
-    getUsersThunk: (currentPage: number, pageSize: number) => void,
     setCurrentPage: (pageNumber: number) => void,
     isFetching: boolean,
     totalUsersCount: number,
-    follow: () => void,
-    unfollow: () => void,
     users: Array<UsersType>,
     followingInProgress: Array<number>,
+    filter: FilterType,
+}
+type MapDispatchPropsType = {
+    getUsersThunk: (currentPage: number, pageSize: number, filter: FilterType) => void,
+    follow: () => void,
+    unfollow: () => void,
 }
 
+type PropsType = MapDispatchPropsType & MapStatePropsType;
 
 class UsersAPIComponent extends React.Component<PropsType> {
 
     componentDidMount(){
-        const {currentPage, pageSize} = this.props;
-        this.props.getUsersThunk(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize, filter} = this.props;
+        this.props.getUsersThunk(this.props.currentPage, this.props.pageSize, filter);
     }
 
     onPageChanged = (pageNumber: number) => {
+        const {filter, pageSize} = this.props;
         this.props.setCurrentPage(pageNumber);
-        this.props.getUsersThunk(pageNumber, this.props.pageSize);
+        this.props.getUsersThunk(pageNumber, this.props.pageSize, filter);
+    }
+
+    onFilterChanged = (filter: FilterType) => {
+        const {currentPage, pageSize} = this.props;
+        this.props.getUsersThunk(currentPage, pageSize, filter);
     }
 
     render() {
@@ -57,7 +68,8 @@ class UsersAPIComponent extends React.Component<PropsType> {
             users ={this.props.users}
             unfollow ={this.props.unfollow}
             follow ={this.props.follow}
-            followingInProgress = {this.props.followingInProgress}/>
+            followingInProgress = {this.props.followingInProgress}
+            onFilterChanged = {this.props.onFilterChanged} />
         </>
     }
 }
