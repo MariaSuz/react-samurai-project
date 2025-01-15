@@ -14,7 +14,7 @@ type FormType = {
 
 export const UserSearchForm: React.FC<UserSearchFormType> = (props) => {
 
-    const submit = (values: FormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+    const submit = (values: { term: string; friend: string }, {setSubmitting}: FormikHelpers<{ term: string; friend: string }>) => {
         const filter: FilterType = {
             term: values.term,
             friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false

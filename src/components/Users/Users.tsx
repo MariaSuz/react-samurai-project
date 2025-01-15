@@ -6,6 +6,7 @@ import {  follow as followAC, unfollow as unfollowAC, FilterType, getUsersThunk 
 import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsers, getUsersFilter } from '../../redux/users-selectors.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/redux-store.ts';
+import { useNavigate } from 'react-router-dom';
 
 
 type PropsType = {
@@ -23,11 +24,19 @@ export const Users: FC<PropsType> = (props) => {
     const users = useSelector(getUsers)
 
 
+    // useEffect(() => {
+    //     history({
+    //         pathname: `/users`,
+    //         search:`?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+    //     })
+    // }, [filter, currentPage])
+
     useEffect(() => {
         dispatch(getUsersThunk(currentPage, pageSize, filter))
     }, [])
 
     const dispatch:AppDispatch = useDispatch()
+    const history = useNavigate()
 
     const onPageChanged = (pageNumber: number) =>  {
         dispatch(getUsersThunk(pageNumber, pageSize, filter))
