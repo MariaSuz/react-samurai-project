@@ -24,4 +24,10 @@ export const getFollowingInProgress = (state: AppStateType) => {
 export const getUsersFilter = (state: AppStateType) => {
   return state.usersPage.filter;
 }
+export const getisAuth = (state: AppStateType) => {
+  return state.auth.isAuth;
+}
+export const getcaptchaUrl = (state: AppStateType) => {
+  return state.auth.captchaUrl;
+}
 

@@ -25,7 +25,6 @@ let mapStateToProps = (state: AppStateType ): MapStatePropsType => {
 type MapStatePropsType = {
     currentPage: number,
     pageSize: number,
-    setCurrentPage: (pageNumber: number) => void,
     isFetching: boolean,
     totalUsersCount: number,
     users: Array<UsersType>,
@@ -49,11 +48,11 @@ class UsersAPIComponent extends React.Component<PropsType> {
 
     onPageChanged = (pageNumber: number) => {
         const {filter, pageSize} = this.props;
-        this.props.setCurrentPage(pageNumber);
         this.props.getUsersThunk(pageNumber, this.props.pageSize, filter);
     }
 
     onFilterChanged = (filter: FilterType) => {
+        debugger
         const {currentPage, pageSize} = this.props;
         this.props.getUsersThunk(currentPage, pageSize, filter);
     }
@@ -69,12 +68,11 @@ class UsersAPIComponent extends React.Component<PropsType> {
             unfollow ={this.props.unfollow}
             follow ={this.props.follow}
             followingInProgress = {this.props.followingInProgress}
-            onFilterChanged = {this.props.onFilterChanged} />
+            onFilterChanged = {this.onFilterChanged} />
         </>
     }
 }
 
-// export default connect(mapStateToProps,  {
 //     follow: followActionCreator,
 //     unfollow: unfollowActionCreator,
 //     setUsers: setUsersActionCreator,

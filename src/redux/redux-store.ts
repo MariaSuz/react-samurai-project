@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { Action, applyMiddleware, combineReducers } from 'redux'
+import { Action, AnyAction, applyMiddleware, combineReducers } from 'redux'
 import profileReducer from './profile-reducer.ts';
 import dialogsReducer from './dialogs-reducer.ts';
 import sidebarReducer from './sidebar-reducer.ts';
 import usersReducer from './users-reducer.ts';
 import authReducer from './auth-reducer.ts';
-import {thunk, ThunkAction} from 'redux-thunk';
+import {thunk, ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
 import appReducer from './app-reducer.ts';
 
@@ -30,6 +30,7 @@ export type InferActionsTypes<T extends {[key: string]: (...args: any[])=>any }>
 //Санки типизируем
 export type BaseThunkType<A extends Action, R = Promise<void>> =  ThunkAction<R, AppStateType, unknown, A>;
 
+export type AppDispatch = ThunkDispatch<AppStateType, unknown, AnyAction>
 
 // @ts-ignore
 let store =  configureStore({reducer: reducers}, applyMiddleware(thunk));

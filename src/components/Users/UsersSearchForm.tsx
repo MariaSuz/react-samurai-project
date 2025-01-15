@@ -19,6 +19,7 @@ export const UserSearchForm: React.FC<UserSearchFormType> = (props) => {
             term: values.term,
             friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false
         }
+        debugger
         props.onFilterChanged(filter);
         setSubmitting(false);
     };
@@ -30,7 +31,7 @@ export const UserSearchForm: React.FC<UserSearchFormType> = (props) => {
 
     return ( <div>
         <Formik
-            initialValues = {{ term: '', friend: null }}
+            initialValues = {{ term: '', friend: 'null' }}
             validate = {usersSearchFormValidate}
             onSubmit = {submit}
             >

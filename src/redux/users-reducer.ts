@@ -4,7 +4,7 @@ import { UsersType } from "../types/types";
 import { AppStateType, BaseThunkType, InferActionsTypes } from "./redux-store";
 import { ThunkAction } from "redux-thunk";
 import { Dispatch } from "redux";
-import { ResponseType } from "../api/api.ts";
+import { ResponseType, ResultCodeEnum } from "../api/api.ts";
 
 let initialState = {
     users: [] as Array <UsersType>,
@@ -81,6 +81,7 @@ export const getUsersThunk = (currentPage: number, pageSize: number, filter: Fil
   return async (dispatch, getState) => {
   dispatch(actions.toggleIsFetching(true));
   dispatch(actions.setCurrentPage(currentPage));
+  debugger
   dispatch(actions.setFilter(filter));
 
   let data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)

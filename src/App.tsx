@@ -4,7 +4,7 @@ import HeaderContainer from './components/header/HeaderContainer.tsx';
 import ProfileContainer from './components/profile/ProfileContainer.tsx';
 import DialogsContainer from './components/dialogs/DialogsContainer.tsx';
 import { Routes, Route, HashRouter } from 'react-router-dom';
-import UsersContainer from './components/Users/UsersContainer.tsx';
+import {UsersPage} from './components/Users/UsersPage.tsx';
 import NavbarContainer from './components/navbar/NavbarContainer.tsx';
 import React, { lazy, Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ import { AppStateType } from './redux/redux-store.ts';
 
 
 //ленивая загрузка, тк загружаются зависимости только при вызове.
-const LoginContainer = lazy(() => import('./components/login/LoginContainer.tsx'));
+const Login = lazy(() => import('./components/login/Login.tsx'));
 
 type MapPropsType = {
   initialize: boolean;
@@ -46,10 +46,10 @@ const App: React.FC<AppPropsType> = (props) => {
           <Routes>
               <Route path='/profile/:userId?' element = {<ProfileContainer/>} />
               <Route path='/dialogs/*' element = {<DialogsContainer />} />
-              <Route path='/users' element = {<UsersContainer />} />
+              <Route path='/users' element = {<UsersPage />} />
               <Route path='/login' element = {
               <Suspense fallback={<div>Loading...</div>}>
-                <LoginContainer />
+                <Login />
               </Suspense>
               }/>
           </Routes>
