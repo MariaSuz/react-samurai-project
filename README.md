@@ -16,7 +16,10 @@
 - Redux-toolkit
 - Redux
 - Axios
-- Redux-form
+- Formik
+- Material UI
+
 
 Проект первоначально был написан на классовых компонентах и JavaScript, сейчас же использованы хуки и Typescript.
+
 

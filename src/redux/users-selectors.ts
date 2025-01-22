@@ -30,4 +30,14 @@ export const getisAuth = (state: AppStateType) => {
 export const getcaptchaUrl = (state: AppStateType) => {
   return state.auth.captchaUrl;
 }
+export const getLogin = (state: AppStateType) => {
+  return state.auth.login;
+}
+export const getProfile = (state: AppStateType) => {
+  return state.profilePage.profile;
+}
+export const getDialogs = (state: AppStateType) => {
+  return state.messagesPage;
+}
+
 

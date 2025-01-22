@@ -1,55 +1,86 @@
-import { initialStateType } from '../../redux/dialogs-reducer';
-import DialogsCSS from './Dialogs.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '@mui/material/Button';
+import { getDialogs } from '../../redux/users-selectors.ts';
 import Itemsmany from './items/Itemsmany.tsx';
 import DioMessages from './mesages/Messages.tsx';
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { AppDispatch } from '../../redux/redux-store.ts';
+import { actions } from '../../redux/dialogs-reducer.ts';
+import { Box, Container, Stack } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
 
-type OwnPropsType = {
-  messagesPage: initialStateType
-  addMessages: (newMessageBody: string) => void
-}
 
-const Dialogs:React.FC<OwnPropsType> = (props) => {
-  let state = props.messagesPage;
+export const Dialogs:React.FC = (props) => {
 
-  let dilogsElements = state.dialogsData.map(dialog =>
+  const dialogState = useSelector(getDialogs)
+  const dispatch:AppDispatch = useDispatch()
+
+  let dilogsElements = dialogState.dialogsData.map(dialog =>
     <Itemsmany names={dialog.names} id={dialog.id} key={dialog.id}/>,
   );
 
-  let messagesElements = state.messagesData.map(message =>
+  let messagesElements = dialogState.messagesData.map(message =>
     <DioMessages message={message.message} key={message.id}/>
   );
 
+  let addMessages = (values: { newMessageBody: string }) => {
+    dispatch(actions.addMessages(values.newMessageBody));
+  };
 
- let addMessages = (values: {newMessageBody: string}) => {
-  props.addMessages(values.newMessageBody);
- }
 
+  const DialogsForm = (props) => {
+    const submit = (values: { newMessageBody: string}, {setSubmitting}: FormikHelpers<{newMessageBody: string}>) => {
+        addMessages(values)
+        };
 
-const DialogsForm = (props) => {
+        const usersSearchFormValidate = (values: any) => {
+            const errors = {}
+            return errors
+        };
+
+    return (
+      <Formik
+      initialValues = {{ newMessageBody: ''}}
+      validate = {usersSearchFormValidate}
+      onSubmit = {submit}
+      >
+      {({ isSubmitting, setFieldValue }) => (
+          <Form>
+              <Box
+                component="form"
+                sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                    onChange={(event) => setFieldValue("newMessageBody", event.target.value)} 
+                    type="text"
+                    label="Some text"
+                  />
+              </Box>
+              <Button type="submit" disabled={isSubmitting} variant="contained" >Add message</Button>
+          </Form>
+      )}
+      </Formik>
+    )
+  }
+
   return (
-    <form onSubmit={props.handleSubmit}>
-      {/* <textarea className={DialogsCSS.textarea} ref={newMessagesPost} onChange={onPostChange} value={props.newPostMessage}/> */}
-      <Field placeholder='Enter your message'  name='newMessageBody' component='textarea' className={DialogsCSS.textarea} />
-      <p><button className={DialogsCSS.but}>Add message</button></p>
-    </form>
+    <Box>
+        <Container>
+          <Stack direction="row" spacing={2}>
+            <Box>
+              {dilogsElements}
+            </Box>
+            <Box>
+              {messagesElements}
+            </Box>
+          </Stack>
+          <DialogsForm />
+        </Container>
+      </Box>
   )
 }
-  const DialogsReduxForm = reduxForm({form: 'dialog'})(DialogsForm)
 
-  return (
-    <div className={DialogsCSS.center}>
-        <div className={DialogsCSS.dialogs}>
-        {dilogsElements}
-        </div>
-        <div className={DialogsCSS.messages}>
-          {messagesElements}
-          <DialogsReduxForm onSubmit={addMessages}/>
-        </div>
-    </div>
-  )
-}
-
-  export default Dialogs;
 
