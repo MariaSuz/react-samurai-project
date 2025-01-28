@@ -39,5 +39,14 @@ export const getProfile = (state: AppStateType) => {
 export const getDialogs = (state: AppStateType) => {
   return state.messagesPage;
 }
+export const getMessagesChat = (state: AppStateType) => {
+  return state.chat.messages;
+}
+export const getPostsProfile = (state: AppStateType) => {
+  return state.profilePage.postData;
+}
+export const getInitialize = (state: AppStateType) => {
+  return state.app.initialize;
+}
 
 

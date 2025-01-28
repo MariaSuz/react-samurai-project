@@ -106,8 +106,8 @@ export const Header: React.FC = (props) => {
             >
               <Typography sx={{ textAlign: 'center' }}>
                 <MenuItem onClick={handleCloseNavMenu}><NavLink to="/profile">Profile</NavLink></MenuItem> {/* в бургере навигация*/}
-                <MenuItem onClick={handleCloseNavMenu}><NavLink to="/dialogs">Dialogs</NavLink></MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}><NavLink to="/users">Find Users</NavLink></MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}><NavLink to="/chat">Chat</NavLink></MenuItem>
               </Typography>
             </Menu>
           </Box>
@@ -130,8 +130,8 @@ export const Header: React.FC = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}> 
               <Button sx={{ my: 2, color: 'white', display: 'block' }}><NavLink style={ { color: 'white'} } to="/profile">Profile</NavLink></Button> {/*//кнопки навигации пк */}
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}><NavLink style={ { color: 'white'} } to="/dialogs">Dialogs</NavLink></Button>
               <Button sx={{ my: 2, color: 'white', display: 'block' }}><NavLink style={ { color: 'white'} } to="/users">Find Users</NavLink></Button>
+              <Button sx={{ my: 2, color: 'white', display: 'block' }}><NavLink style={ { color: 'white'} } to="/chat">Chat</NavLink></Button>
           </Box>
           {isAuth
         ? <Box sx={{ flexGrow: 0 }}>

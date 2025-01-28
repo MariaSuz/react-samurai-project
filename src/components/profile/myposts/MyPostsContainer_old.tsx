@@ -12,6 +12,7 @@ let mapStateToProps = (state: AppStateType) => {
   }
 }
 
+
 class MyPostsContainer extends React.Component<MapPropsType & DispatchPropsType> {
 
   render () {
