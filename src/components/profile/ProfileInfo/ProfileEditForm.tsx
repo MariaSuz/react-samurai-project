@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { ContactsType, ProfileType } from '../../../types/types.ts';
-import { Box, Button, Checkbox, Collapse, FormControlLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Switch, TextField, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Collapse, FormControlLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Modal, Switch, TextField, Typography } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ContactsIcon from '@mui/icons-material/Contacts';
-
 
 
 export const ProfileEditForm: React.FC<PropsType> = (props) => {
@@ -106,6 +105,8 @@ export const ProfileEditForm: React.FC<PropsType> = (props) => {
     </Formik>
     )
   }
+
+
 
 type PropsType = {
     profile: ProfileType | null

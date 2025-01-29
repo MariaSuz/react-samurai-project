@@ -10,7 +10,6 @@ type PropsType = {
 }
 
 export const ProfileForm: React.FC<PropsType> = (props) => {
-
     const keysValues = Object.keys(props.profile.contacts);
     let filtered = keysValues.filter(function(key) {
         return (props.profile.contacts[key])

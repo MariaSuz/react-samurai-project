@@ -7,17 +7,36 @@ import {ProfileEditForm} from './ProfileEditForm.tsx';
 import { ChangeEvent, useState } from 'react';
 import {ProfileForm} from './ProfileForm.tsx';
 import { ProfileType } from '../../../types/types.js';
-import { Box, Button, styled, Typography } from '@mui/material';
+import { Box, Button, Modal, styled, Typography } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-type PropsType = {
-    profile: ProfileType | null
-    status: string
-    updateProfileStatus: (status: string) => void
-    isOwner: boolean
-    savePhoto: (file: File) => void
-    saveProfile: (profile: ProfileType) => Promise<any>
-}
+const styleModal = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #4996f0',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+    overflow: "auto" 
+  };
+
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+});
+
 const ProfileInfo: React.FC<PropsType> = (props) =>{
 
     let [editMode, setEditMode] = useState(false);
@@ -26,6 +45,13 @@ const ProfileInfo: React.FC<PropsType> = (props) =>{
     if (!props.profile) {
         return <Preloader />
     }
+
+    const openModal = () => {
+        setEditMode(true)
+    };
+    const closeModal = () => {
+        setEditMode(false)
+    };
 
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.files?.length) {  //Если файлы есть, то выполняем
@@ -39,18 +65,6 @@ const ProfileInfo: React.FC<PropsType> = (props) =>{
         props.saveProfile(sanitizedData);
         setEditMode(false);
     }
-
-    const VisuallyHiddenInput = styled('input')({
-        clip: 'rect(0 0 0 0)',
-        clipPath: 'inset(50%)',
-        height: 1,
-        overflow: 'hidden',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        whiteSpace: 'nowrap',
-        width: 1,
-      });
 
 
     return (
@@ -85,8 +99,19 @@ const ProfileInfo: React.FC<PropsType> = (props) =>{
                 </Box>)
                 : ('') }
             {editMode
-                ? <ProfileEditForm profile = {props.profile}  onSubmit = {onSubmit}/> 
-                : <ProfileForm goToEditMode = { () => {setEditMode(true)} }  profile = {props.profile} isOwner = {props.isOwner}/>
+                ? (
+                <Modal
+                    open={editMode}
+                    onClose={closeModal}
+                    aria-labelledby="child-modal-title"
+                    aria-describedby="child-modal-description"
+                >
+                    <Box sx={{ ...styleModal, width: 400 }}>
+                        <ProfileEditForm profile={props.profile} onSubmit={onSubmit} />
+                    </Box>
+                </Modal>
+                ) : (
+                <ProfileForm goToEditMode = {openModal}  profile = {props.profile} isOwner = {props.isOwner}/>)
             }
             {/* {editMode
                 ? <ProfileEditForm initialValues = {props.profile} profile = {props.profile}   onSubmit = {onSubmit}/> //initialValues устаревшее особенность редакс формы
@@ -96,5 +121,13 @@ const ProfileInfo: React.FC<PropsType> = (props) =>{
     )
   }
 
+  type PropsType = {
+    profile: ProfileType | null
+    status: string
+    updateProfileStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType) => Promise<any>
+}
 
   export default ProfileInfo;
