@@ -7,9 +7,8 @@ import {stopSubmit} from "redux-form";
 let initialState  = {
     postData: [
       {id: 1, message: 'Hello', likesCount: 0},
-      {id: 2, message: 'I want car', likesCount: 110},
-      {id: 3, message: 'Hello', likesCount: 10},
-      {id: 4, message: 'Its my firts post', likesCount: 1},
+      {id: 2, message: 'I want car', likesCount: 4},
+      {id: 3, message: 'I like JS', likesCount: 100},
     ] as Array<PostType>,
     profile: null as ProfileType | null,
     status: '' as string | null,
@@ -25,7 +24,7 @@ const profileReducer = (state = initialState, action: ActionsTypes): initialStat
             let mes = action.post;
             return  {
               ...state,
-              postData: [...state.postData, {id: 5, message: mes,likesCount: 0}],
+              postData: [...state.postData, {id: 5, message: mes, likesCount: Math.floor(Math.random() * 100)}],
             }
               }
         case 'profile/SET_USER_PROFILE': {

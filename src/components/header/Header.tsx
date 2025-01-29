@@ -16,17 +16,11 @@ import { AppDispatch } from '../../redux/redux-store';
 import { getisAuth, getLogin, getProfile } from '../../redux/users-selectors.ts';
 import { getLogOut } from '../../redux/auth-reducer.ts';
 import { NavLink } from 'react-router-dom';
-import { colors } from '@mui/material';
-
-
-
-
 
 
 export const Header: React.FC = (props) => {
 
   const isAuth = useSelector(getisAuth)
-  const login = useSelector(getLogin)
   const profile = useSelector(getProfile)
   const logoutCallback = () => {
       dispatch(getLogOut())
@@ -128,7 +122,7 @@ export const Header: React.FC = (props) => {
           >
             JunDevops
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}> 
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button sx={{ my: 2, color: 'white', display: 'block' }}><NavLink style={ { color: 'white'} } to="/profile">Profile</NavLink></Button> {/*//кнопки навигации пк */}
               <Button sx={{ my: 2, color: 'white', display: 'block' }}><NavLink style={ { color: 'white'} } to="/users">Find Users</NavLink></Button>
               <Button sx={{ my: 2, color: 'white', display: 'block' }}><NavLink style={ { color: 'white'} } to="/chat">Chat</NavLink></Button>
@@ -137,7 +131,7 @@ export const Header: React.FC = (props) => {
         ? <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="avatar" src={profile?.photos.small || undefined} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -168,7 +162,7 @@ export const Header: React.FC = (props) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="avatar" src="" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -197,4 +191,5 @@ export const Header: React.FC = (props) => {
     </AppBar>
   );
 }
+
 

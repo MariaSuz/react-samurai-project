@@ -16,11 +16,9 @@ export type PropsType = {
 
 const Profile:React.FC<PropsType> = (props) => {
     return (
-        <Container>
-            <Grid2 container alignItems="center" direction="row">
+        <Container sx={{ display: 'flex', flexDirection: 'column',  alignItems: 'center' }}>
             <ProfileInfo {...props} />
             <MyPosts />
-            </Grid2>
         </Container>
     )
 }

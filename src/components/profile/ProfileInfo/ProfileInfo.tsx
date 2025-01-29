@@ -1,12 +1,14 @@
+import React from 'react';
 import Preloader from '../../Common/Preloader/Preloader.tsx';
 import ProfileInfoCSS from'./ProfileInfo.module.css';
 import ProfileStatus from './ProfileStatus.tsx';
 import userPhoto from '../../../assets/images/user.png';
-import ProfileEditForm from './ProfileEditForm.tsx';
+import {ProfileEditForm} from './ProfileEditForm.tsx';
 import { ChangeEvent, useState } from 'react';
-import ProfileForm from './ProfileForm.tsx';
-import React from 'react';
+import {ProfileForm} from './ProfileForm.tsx';
 import { ProfileType } from '../../../types/types.js';
+import { Box, Button, styled, Typography } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 type PropsType = {
     profile: ProfileType | null
@@ -35,33 +37,62 @@ const ProfileInfo: React.FC<PropsType> = (props) =>{
         // props.saveProfile(formData);
         const sanitizedData = { ...formData };
         props.saveProfile(sanitizedData);
+        setEditMode(false);
     }
+
+    const VisuallyHiddenInput = styled('input')({
+        clip: 'rect(0 0 0 0)',
+        clipPath: 'inset(50%)',
+        height: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        whiteSpace: 'nowrap',
+        width: 1,
+      });
 
 
     return (
-        <div>
-            <div className={ProfileInfoCSS.descriptionblock}>
-                <span><b>Full Name:</b> {props.profile.fullName}</span>
+        <Box sx={{ m: 2}}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-around', p: 2, gap: 10}}>
+                <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+                    <Typography variant="h4" gutterBottom>
+                        {props.profile.fullName}
+                    </Typography>
+                    <Typography variant="subtitle1" gutterBottom>
+                        <ProfileStatus status={props.status} updateProfileStatus={props.updateProfileStatus}/>
+                    </Typography>
+                </Box>
                 <img src={props.profile.photos.large || userPhoto} className={ProfileInfoCSS.userphoto} alt="user-photo" />
-                {props.isOwner
-                ? (  <div>
-                        <input type = {'file'} onChange = {onMainPhotoSelected} id = 'input-file'/>
-                        <label htmlFor="input-file">
-                            <span className={ProfileInfoCSS.inputbtn}>Upload image</span>
-                        </label>
-                    </div>
-                )
+            </Box>
+            {props.isOwner
+                ? (  <Box textAlign='center' sx={{ m: 1}}>
+                <Button
+                    component="label"
+                    role={undefined}
+                    variant="contained"
+                    tabIndex={-1}
+                    startIcon={<CloudUploadIcon />}
+                  >
+                    Upload photo
+                    <VisuallyHiddenInput
+                      type="file"
+                      onChange={onMainPhotoSelected}
+                      multiple
+                    />
+                  </Button>
+                </Box>)
                 : ('') }
-                <ProfileStatus status={props.status} updateProfileStatus={props.updateProfileStatus}/>
-                {/* <div>
-                    <span>Looking for a job: {props.lookingForAJob ? 'yes' : 'no'} </span>
-                 </div> */}
-                {editMode
-                    ? <ProfileEditForm initialValues = {props.profile} profile = {props.profile}   onSubmit = {onSubmit}/> //initialValues устаревшее особенность редакс формы
-                    : <ProfileForm goToEditMode = { () => {setEditMode(true)} }  profile = {props.profile} isOwner = {props.isOwner}/>
-                }
-            </div>
-        </div>
+            {editMode
+                ? <ProfileEditForm profile = {props.profile}  onSubmit = {onSubmit}/> 
+                : <ProfileForm goToEditMode = { () => {setEditMode(true)} }  profile = {props.profile} isOwner = {props.isOwner}/>
+            }
+            {/* {editMode
+                ? <ProfileEditForm initialValues = {props.profile} profile = {props.profile}   onSubmit = {onSubmit}/> //initialValues устаревшее особенность редакс формы
+                : <ProfileForm goToEditMode = { () => {setEditMode(true)} }  profile = {props.profile} isOwner = {props.isOwner}/>
+            } */}
+        </Box>
     )
   }
 

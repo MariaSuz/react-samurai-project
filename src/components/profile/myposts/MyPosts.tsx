@@ -36,18 +36,21 @@ const PostsForm:React.FC<PostsFormProps> = ({addPost}) => {
       >
         {({ isSubmitting, errors, touched, handleChange, handleBlur }) => (
           <Form>
-            <TextField
-                    label="My posts"
-                    variant="outlined"
-                    name="newPostText"
-                    required
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={Boolean(touched.newPostText && errors.newPostText)}
-                    helperText={touched.newPostText && errors.newPostText}
-                    sx={{mb: 2}}
-                />
-            <Button style={{maxWidth: '280px'}} type="submit" disabled={isSubmitting} variant="contained">Add post</Button>
+            <Box sx={{  display: 'flex', flexDirection: 'column',  alignItems: 'center', gap: 1}}>
+              <TextField
+                      label="My posts"
+                      variant="outlined"
+                      name="newPostText"
+                      required
+                      fullWidth
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={Boolean(touched.newPostText && errors.newPostText)}
+                      helperText={touched.newPostText && errors.newPostText}
+                      sx={{mb: 2}}
+                  />
+              <Button style={{maxWidth: '280px'}} type="submit" disabled={isSubmitting} variant="contained">Add post</Button>
+            </Box>
           </Form>
         )}
         </Formik>
@@ -68,12 +71,12 @@ const MyPosts: React.FC = () => {
   );
 
   return (
-    <Container >
+    <Box>
         <PostsForm addPost = {addPost} />
-        <Box sx={{  maxWidth: 280, display: 'flex', flexDirection: 'column',  alignItems: 'center', gap: 1,  m: 4}}>
+        <Box sx={{ display: 'flex', flexDirection: 'column',  gap: 1,  m: 4}}>
           {postsElements}
         </Box>
-    </Container>
+    </Box>
     )
 }
 

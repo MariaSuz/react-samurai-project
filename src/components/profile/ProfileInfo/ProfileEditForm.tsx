@@ -1,57 +1,120 @@
-import { Field, reduxForm } from 'redux-form';
-import ProfileInfoCSS from'./ProfileInfo.module.css';
-import { Input, Textarea } from '../../Common/FormsControls/FormsControls.tsx';
-import React from 'react';
+import React, { useState } from 'react';
+import { Form, Formik, FormikHelpers } from 'formik';
+import { ContactsType, ProfileType } from '../../../types/types.ts';
+import { Box, Button, Checkbox, Collapse, FormControlLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Switch, TextField, Typography } from '@mui/material';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import ContactsIcon from '@mui/icons-material/Contacts';
 
 
 
-function ProfileEditForm(props) {
-    const { handleSubmit, profile } = props;
+export const ProfileEditForm: React.FC<PropsType> = (props) => {
+    const [open, setOpen] = useState(false);
+
+    const handleClick = () => {
+        setOpen(!open);
+    };
+
+    const submit = (values: ValueType, {setSubmitting}: FormikHelpers<ValueType>) => {
+            props.onSubmit(values);
+            setSubmitting(false)
+        };
+
+    if (!props.profile) {
+        return null; // или можно вернуть заглушку, если профиль не загружен
+    }
+
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <span>Full Name: </span>
-                <Field placeholder={'Full name'} name={'fullName'} component={Input} />
-            </div>
-            <div>
-                <span>Looking for a job: </span>
-                <Field type={'checkbox'} name={'lookingForAJob'} component={Input} />
-            </div>
-            <div>
-                <span>About skills:</span>
-                <Field placeholder={'Write your skills'}  name={'lookingForAJobDescription'} component={Textarea} />
-            </div>
-            <div>
-                <span>About me:</span>
-                <Field placeholder={'About you'}  name={'aboutMe'} component={Textarea} />
-            </div>
-            <div>
-                <span>Contacts:</span>
-                {Object.keys(profile.contacts).map(key => {
-                        return(
-                        <div key={key}>
-                            {key} : {<Field name={`contacts.${key}`} component={Input} />}
-                        </div>
-                        );
-                    })}
-            </div>
-              <button type="submit" className={ProfileInfoCSS.button_contacts}>Save profile</button>
-        </form>
+        <Formik
+        initialValues = {{ lookingForAJob: props.profile.lookingForAJob || false, lookingForAJobDescription: props.profile.lookingForAJobDescription || '', contacts: props.profile.contacts || {} as ContactsType, fullName: props.profile.fullName || '', aboutMe: props.profile.aboutMe || ''}}
+        onSubmit = {submit}
+        >
+        {({ isSubmitting, values, handleChange, handleBlur }) => (
+            <Form>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                    <TextField
+                            label="Name"
+                            variant="outlined"
+                            name="fullName"
+                            fullWidth
+                            value={values.fullName}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            sx={{mb: 2}}
+                    />
+                    <TextField
+                            label="About me"
+                            variant="outlined"
+                            name="aboutMe"
+                            fullWidth
+                            value={values.aboutMe}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            sx={{mb: 2}}
+                    />
+                    <FormControlLabel
+                    control={<Checkbox  checked={values.lookingForAJob} />}
+                    label="Looking for a job:"
+                    name="lookingForAJob"
+                    onChange={handleChange}
+                    />
+                    {values.lookingForAJob && (
+                    <TextField
+                        label="Write your skills"
+                        variant="outlined"
+                        name="lookingForAJobDescription"
+                        fullWidth
+                        value={values.lookingForAJobDescription}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        sx={{mb: 2}}
+                    />)}
+                    {/* Контакты!!! */}
+                    <ListItemButton onClick={handleClick}>
+                        <ListItemIcon>
+                        <ContactsIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Contacts" />
+                        {open ? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                        <List
+                        component="div"
+                        disablePadding
+                        sx={{ display: 'flex', flexDirection: 'column' }}
+                        id="listForm">
+                        {Object.keys(props.profile.contacts).map(key => (
+                            <TextField
+                                key={key}
+                                label={key}
+                                variant="outlined"
+                                name={`contacts.${key}`}
+                                fullWidth
+                                value={values.contacts[key as keyof ContactsType] || ''}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                sx={{ mb: 2 }}
+                            />
+                        ))}
+                        </List>
+                    </Collapse>
+                    {/* Контакты!!! */}
+                    <Button type="submit" disabled={isSubmitting} variant="contained" fullWidth>Save profile</Button>
+                </Box>
+            </Form>
+        )}
+    </Formik>
     )
   }
 
-
-  const ProfileReduxForm = reduxForm({form: 'profile', destroyOnUnmount: false})(ProfileEditForm);
-
-//   const ProfileEdit = (props) => {
-//     const onSubmit = (formData) => {
-//         props.saveProfile(formData.fullName, formData.lookingForAJob, formData.lookingForAJobDescription);
-//     }
-
-//     return <div>
-//         <ProfileReduxForm onSubmit={onSubmit} {...props}/>
-//     </div>
-
-// }
-
-  export default ProfileReduxForm;
+type PropsType = {
+    profile: ProfileType | null
+    onSubmit: (values: ProfileType) => void
+}
+type ValueType = {
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    aboutMe: string
+    contacts: ContactsType
+    fullName: string
+}
