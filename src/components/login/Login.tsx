@@ -38,60 +38,58 @@ const LoginForm: React.FC<LoginFormOwnProps> = (props) => {
             >
             {({ isSubmitting, errors, touched, handleChange, handleBlur }) => (
                 <Form>
-                <div >
-                <TextField
-                        label="Email"
+                    <TextField
+                            label="Email"
+                            variant="outlined"
+                            name="email"
+                            fullWidth
+                            required
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={Boolean(touched.email && errors.email)}
+                            helperText={touched.email && errors.email}
+                            sx={{mb: 2}}
+                        />
+                    <TextField
+                        label="Password"
                         variant="outlined"
-                        name="email"
+                        name="password"
+                        type="password"
                         fullWidth
                         required
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        error={Boolean(touched.email && errors.email)}
-                        helperText={touched.email && errors.email}
+                        error={Boolean(touched.password && errors.password)}
+                        helperText={touched.password && errors.password}
                         sx={{mb: 2}}
                     />
-                <TextField
-                    label="Password"
-                    variant="outlined"
-                    name="password"
-                    type="password"
-                    fullWidth
-                    required
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={Boolean(touched.password && errors.password)}
-                    helperText={touched.password && errors.password}
-                    sx={{mb: 2}}
-                />
-                <FormControlLabel
-                    control={<Checkbox  />}
-                    label="Remember Me"
-                    name="rememberMe"
-                    onChange={handleChange}
-                />
-                {props.captchaUrl && <img src={props.captchaUrl} alt="captcha" />}
-                {props.captchaUrl && <TextField
-                    variant="outlined"
-                    name="captcha"
-                    type="input"
-                    fullWidth
-                    required
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={Boolean(touched.captcha && errors.captcha)}
-                    helperText={touched.captcha && errors.captcha}
-                    sx={{mb: 2}}
-                /> }
-                    {/* <Field type="text" name="email" placeholder="Login"/>
-                    {errors.email && <div>{errors.email}</div>}
-                    <Field type="password" name="password" placeholder="Password"/>
-                    {errors.password && <div>{errors.password}</div>}
-                    <Field type="checkbox" name="rememberMe" />  Remember me
+                    <FormControlLabel
+                        control={<Checkbox  />}
+                        label="Remember Me"
+                        name="rememberMe"
+                        onChange={handleChange}
+                    />
                     {props.captchaUrl && <img src={props.captchaUrl} alt="captcha" />}
-                    {props.captchaUrl && <Field type="text" name="captcha" placeholder="Enter captcha" />} */}
-                </div>
-                <Button type="submit" disabled={isSubmitting} variant="contained" fullWidth>Login</Button>
+                    {props.captchaUrl && <TextField
+                        variant="outlined"
+                        name="captcha"
+                        type="input"
+                        fullWidth
+                        required
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={Boolean(touched.captcha && errors.captcha)}
+                        helperText={touched.captcha && errors.captcha}
+                        sx={{mb: 2}}
+                    /> }
+                        {/* <Field type="text" name="email" placeholder="Login"/>
+                        {errors.email && <div>{errors.email}</div>}
+                        <Field type="password" name="password" placeholder="Password"/>
+                        {errors.password && <div>{errors.password}</div>}
+                        <Field type="checkbox" name="rememberMe" />  Remember me
+                        {props.captchaUrl && <img src={props.captchaUrl} alt="captcha" />}
+                        {props.captchaUrl && <Field type="text" name="captcha" placeholder="Enter captcha" />} */}
+                    <Button type="submit" disabled={isSubmitting} variant="contained" fullWidth>Login</Button>
                 </Form>
             )}
     </Formik>

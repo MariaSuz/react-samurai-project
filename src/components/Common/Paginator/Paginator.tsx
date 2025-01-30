@@ -10,15 +10,11 @@ type PropsType = {
 
 
 let Paginator: React.FC<PropsType> = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
-    let pageCount = Math.ceil(totalUsersCount / pageSize);
+    let pageCount = Math.ceil(totalUsersCount / pageSize);  //кол-во страниц
     let pages = Array(); // [] имправила, чтобы убрать ошибку TS "ages.push(i); аргумент типа number нельзя назначить never"
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i);
     }
-
-    //Local pagination
-    // let countOfItemsInPage = 5;
-    // let countOfItems = Math.ceil(pageCount / countOfItemsInPage);
 
     let [start, setStart] = useState<number>(0);
     let [end, setEnd] = useState<number>(10);

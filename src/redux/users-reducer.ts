@@ -5,10 +5,11 @@ import { AppStateType, BaseThunkType, InferActionsTypes } from "./redux-store";
 import { ThunkAction } from "redux-thunk";
 import { Dispatch } from "redux";
 import { ResponseType, ResultCodeEnum } from "../api/api.ts";
+import { profileAPI } from "../api/propfile-api.ts";
 
 let initialState = {
     users: [] as Array <UsersType>,
-    pageSize: 5 as number,
+    pageSize: 9 as number,
     totalUsersCount: 21 as number,
     currentPage: 1 as number,
     isFetching: false as boolean,
@@ -16,7 +17,8 @@ let initialState = {
     filter: {
       term: '',
       friend: null as null | boolean,
-    }
+    },
+    userStatus: '' as string,
   };
 
 export type initialStateType = typeof initialState
@@ -55,6 +57,9 @@ const usersReducer = (state = initialState, action: ActionsTypes): initialStateT
          : state.followingInProgress.filter(id => id !== action.userId)
         }
     }
+    case 'users/STATUS_USER': {
+      return {...state, userStatus: action.userStatus}
+    }
     default:
       return state;
   }
@@ -70,7 +75,8 @@ export const actions = {
   setFilter: (filter: FilterType)=> ({type: 'users/SET_FILTER', payload: filter } as const),
   settotalUsersCount: (totalUsersCount: number) => ({type: 'users/SET_TOTAL_USERS', count: totalUsersCount} as const),
   toggleIsFetching: (isFetching: boolean) => ({type: 'users/TOGGLE_IS_FETCHINGS', isFetching} as const),
-  togglefollowingInProgress: (isFetching: boolean, userId:number) => ({type: 'users/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId} as const)
+  togglefollowingInProgress: (isFetching: boolean, userId:number) => ({type: 'users/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId} as const),
+  getUserStatus: (userStatus: string) => ({type: 'users/STATUS_USER', userStatus} as const),
 }
 
 type GetStateType = () => AppStateType;
@@ -81,7 +87,6 @@ export const getUsersThunk = (currentPage: number, pageSize: number, filter: Fil
   return async (dispatch, getState) => {
   dispatch(actions.toggleIsFetching(true));
   dispatch(actions.setCurrentPage(currentPage));
-  debugger
   dispatch(actions.setFilter(filter));
 
   let data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
@@ -89,6 +94,11 @@ export const getUsersThunk = (currentPage: number, pageSize: number, filter: Fil
   dispatch(actions.setUsers(data.items));
   dispatch(actions.settotalUsersCount(data.totalCount));
   }
+}
+
+export const usersStatus = (userId: number):ThunkType => async (dispatch) => {
+  let data = await profileAPI.getStatus(userId)
+  dispatch(actions.getUserStatus(data));
 }
 
 const _followUnfollowFlow = async (dispatch: DispatchType, userID: number,

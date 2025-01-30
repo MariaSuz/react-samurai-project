@@ -23,7 +23,7 @@ let initialState = {
       // {id: 5, photoUrl: 'https://i.pinimg.com/736x/3d/bf/b0/3dbfb0db73db8c521dd5792b509da8d9.jpg', followed: false, fullname: 'Francisco', status: 'work at the factory', location: {city: 'Lisbon', country: 'Portugal'}},
       // {id: 6, photoUrl: 'https://i.pinimg.com/736x/3d/bf/b0/3dbfb0db73db8c521dd5792b509da8d9.jpg', followed: false, fullname: 'Sakura', status: 'just registered', location: {city: 'Tokyo', country: 'Japan'}},
     ] as Array <UsersType>,
-    pageSize: 5 as number,
+    pageSize: 10 as number,
     totalUsersCount: 21 as number,
     currentPage: 1 as number,
     isFetching: false as boolean,

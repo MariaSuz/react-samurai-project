@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../redux/redux-store';
+import { AppDispatch } from '../../redux/redux-store.ts';
 import { getisAuth, getLogin, getProfile } from '../../redux/users-selectors.ts';
 import { getLogOut } from '../../redux/auth-reducer.ts';
 import { NavLink } from 'react-router-dom';

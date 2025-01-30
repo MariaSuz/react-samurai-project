@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { profileMe, profileStatus, updateProfileStatus, savePhoto, saveProfile } from "../../redux/profile-reducer.ts";
 import {useParams} from "react-router-dom";
 import { compose } from "redux";
-import {Login} from '../login/Login.tsx';
+import {Login} from '../Login/Login.tsx';
 import withAuthRedidirect from '../../hoc/AuthRedirect.js';
 import { AppStateType } from '../../redux/redux-store.ts';
 import { ProfileType } from '../../types/types.ts';

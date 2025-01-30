@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { startMessagesListening, stopMessagesListening, sendMessage } from "../redux/chat-reducer.ts";
 import { AppDispatch } from "../redux/redux-store";
 import { getMessagesChat } from "../redux/users-selectors.ts";
+import { Container } from "@mui/material";
 
 const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
@@ -20,10 +21,11 @@ const Chat: React.FC = () => {
             dispatch(stopMessagesListening())
         }
     })
-    return <div>
-        <Messages />
-        <AddMessages />
-    </div>
+    return (
+        <Container>
+            <Messages />
+            <AddMessages />
+        </Container>)
 }
 
 const Messages: React.FC = () => {
