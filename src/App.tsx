@@ -29,20 +29,20 @@ const theme = createTheme({
 
 
 export const App: React.FC = (props) => {
-
   const initialize = useSelector(getInitialize)
   const isAuth = useSelector(getisAuth);
-
   const dispatch:AppDispatch = useDispatch()
 
-  const initializedApp = () => {
-    dispatch(initializeApp())
-  }
-
+  // const initializedApp = () => {
+  //   dispatch(initializeApp())
+  // }
   useEffect(() => {
-    initializedApp();
-  }, []);
+    dispatch(initializeApp());
+  }, [dispatch]);
 
+  // useEffect(() => {
+  //   initializedApp();
+  // }, []);
 
   if (!initialize) {
     return (<Preloader />)
@@ -57,6 +57,7 @@ export const App: React.FC = (props) => {
               <Routes>
               {isAuth ?  (
                 <>
+                  <Route path='/' element={<Navigate to='/profile' replace />} />
                   <Route path='/profile/:userId?' element = {<ProfileContainer/>} />
                   <Route path='/dialogs/*' element = {<Dialogs />} />
                   <Route path='/users' element = {<UsersPage />} />
