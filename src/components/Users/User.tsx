@@ -32,7 +32,7 @@ const User: FC<PropsType> = ({user, followingInProgress, unfollow, follow, statu
                 </Typography>
             </CardContent>
             <CardActions sx={{ display: 'flex',  flexWrap: 'wrap', justifyContent: 'space-between'}}>
-                <NavLink to={'/profile/' + user.id}><Button variant="text">User propfile</Button></NavLink>
+                <NavLink to={'/profile/' + user.id}><Button variant="text">User profile</Button></NavLink>
                 {user.followed
                     // ?  <button className={styles.buttonfollow} onClick={() => {props.unfollow(u.id)}}>Follow</button>
                     // :  <button className={styles.buttonunfollow} onClick={() => {props.follow(u.id)}}>Unfollow</button>}

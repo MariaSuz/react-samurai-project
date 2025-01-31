@@ -5,7 +5,6 @@ import { profileMe, profileStatus, updateProfileStatus, savePhoto, saveProfile }
 import {useParams} from "react-router-dom";
 import { compose } from "redux";
 import {Login} from '../Login/Login.tsx';
-import withAuthRedidirect from '../../hoc/AuthRedirect.js';
 import { AppStateType } from '../../redux/redux-store.ts';
 import { ProfileType } from '../../types/types.ts';
 
@@ -16,29 +15,6 @@ export function withRouter(Children: React.ComponentType<any>) {
         return <Children {...props} match={match} />
     }
 }
-
-
-let mapStateToProps = (state: AppStateType) => ({
-    profile: state.profilePage.profile,
-    // userId: state.profilePage.userId,
-    status: state.profilePage.status,
-    isAuth: state.auth.isAuth,
-    authorizedUser: state.auth.userId,
-})
-type MapPropsType = ReturnType<typeof mapStateToProps>
-type DispatchPropsType = {
-    profileMe: (userId: number) => void
-    profileStatus: (userId: number) => void
-    updateProfileStatus: (status: string) => void
-    savePhoto: (file: File) => void
-    saveProfile: (profile: ProfileType) => Promise<any>
-}
-
-type PathParamsType = {
-    userId: string;
-};
-
-type PropsType = MapPropsType & DispatchPropsType & { match: { params: PathParamsType } };
 
 class ProfileContainer extends React.Component<PropsType> {
 
@@ -75,9 +51,29 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 }
 
-// let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-// export default connect(mapStateToProps, {profileMe, setUserId}) (WithUrlDataContainerComponent);
+let mapStateToProps = (state: AppStateType) => ({
+    profile: state.profilePage.profile,
+    // userId: state.profilePage.userId,
+    status: state.profilePage.status,
+    isAuth: state.auth.isAuth,
+    authorizedUser: state.auth.userId,
+})
+type MapPropsType = ReturnType<typeof mapStateToProps>
+
+type DispatchPropsType = {
+    profileMe: (userId: number) => void
+    profileStatus: (userId: number) => void
+    updateProfileStatus: (status: string) => void
+    savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType) => Promise<any>
+}
+
+type PathParamsType = {
+    userId: string;
+};
+
+type PropsType = MapPropsType & DispatchPropsType & { match: { params: PathParamsType } };
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, { profileMe, profileStatus, updateProfileStatus, savePhoto, saveProfile }),

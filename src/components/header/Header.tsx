@@ -22,14 +22,22 @@ export const Header: React.FC = (props) => {
 
   const isAuth = useSelector(getisAuth)
   const profile = useSelector(getProfile)
-  const logoutCallback = () => {
-      dispatch(getLogOut())
-  }
-
   const dispatch:AppDispatch = useDispatch()
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [avatar, setAvatar] = React.useState<string | undefined>(undefined);
+
+  React.useEffect(() => {
+    if (isAuth && profile?.photos?.small) {
+      setAvatar(profile.photos.small);
+    }
+  }, [isAuth]);
+
+  const logoutCallback = () => {
+    dispatch(getLogOut());
+    setAvatar(undefined);
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -127,42 +135,10 @@ export const Header: React.FC = (props) => {
               <Button sx={{ my: 2, color: 'white', display: 'block' }}><NavLink style={ { color: 'white'} } to="/users">Find Users</NavLink></Button>
               <Button sx={{ my: 2, color: 'white', display: 'block' }}><NavLink style={ { color: 'white'} } to="/chat">Chat</NavLink></Button>
           </Box>
-          {isAuth
-        ? <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="avatar" src={profile?.photos.small || undefined} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }}><NavLink to="/profile">Profile</NavLink></Typography>
-                </MenuItem>
-                <MenuItem onClick={logOut}>
-                  <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
-                </MenuItem>
-            </Menu>
-          </Box>
-          :
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="avatar" src="" />
+                <Avatar alt="avatar" src = {avatar} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -181,11 +157,22 @@ export const Header: React.FC = (props) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography sx={{ textAlign: 'center' }}><NavLink to="/Login">Login</NavLink></Typography>
-              </MenuItem>
+              {isAuth ? (
+                <>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography sx={{ textAlign: 'center' }}><NavLink to="/profile">Profile</NavLink></Typography>
+                  </MenuItem>
+                  <MenuItem onClick={logOut}>
+                    <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+                  </MenuItem>
+                </>
+              ) : (
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: 'center' }}><NavLink to="/Login">Login</NavLink></Typography>
+                </MenuItem>
+              )}
             </Menu>
-          </Box>}
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

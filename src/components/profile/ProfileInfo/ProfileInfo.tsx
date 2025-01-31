@@ -78,7 +78,9 @@ const ProfileInfo: React.FC<PropsType> = (props) =>{
                         <ProfileStatus status={props.status} updateProfileStatus={props.updateProfileStatus}/>
                     </Typography>
                 </Box>
-                <img src={props.profile.photos.large || userPhoto} className={ProfileInfoCSS.userphoto} alt="user-photo" />
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', width: '200px', height: '200px' }}>
+                    <img src={props.profile.photos.large || userPhoto} className={ProfileInfoCSS.userphoto} alt="user-photo" />
+                </Box>
             </Box>
             {props.isOwner
                 ? (  <Box textAlign='center' sx={{ m: 1}}>

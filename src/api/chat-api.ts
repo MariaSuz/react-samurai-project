@@ -32,16 +32,20 @@ const closeHandler = () => {
 }
 
 const messageHandler = (e: MessageEvent) => {
-    let newMessages = JSON.parse(e.data)
-    subbcribers.forEach(s => s(newMessages))
-}
+    let newMessages = JSON.parse(e.data);
+    subbcribers.forEach(s => s(newMessages));
+  };
 
 function createChannel() {
-    ws?.removeEventListener('close', closeHandler)
-    ws?.close()
-    ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-    ws.addEventListener('close', closeHandler)
-    ws.addEventListener('message', messageHandler)
+    if (ws) {
+        ws.removeEventListener('close', closeHandler);
+        ws.removeEventListener('message', messageHandler);
+        ws.close();
+    }
+    
+    ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
+    ws.addEventListener('close', closeHandler);
+    ws.addEventListener('message', messageHandler);
 }
 
 

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 
 const Preloader: React.FC = () => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
       <CircularProgress />
     </Box>
   );
