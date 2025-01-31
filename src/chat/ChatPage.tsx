@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { startMessagesListening, stopMessagesListening, sendMessage } from "../redux/chat-reducer.ts";
 import { AppDispatch } from "../redux/redux-store";
 import { getMessagesChat } from "../redux/users-selectors.ts";
-import { Avatar, Box, Button, Container, List, ListItem, ListItemAvatar, ListItemText, TextField } from "@mui/material";
+import { Avatar, Box, Button, Container, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography } from "@mui/material";
 
 const ChatPage: React.FC = () => {
     return <div>
@@ -23,6 +23,11 @@ const Chat: React.FC = () => {
 
       return (
         <Container>
+            <Box sx={{  textAlign: 'center'}}>
+                <Typography variant="h6" component="h2">
+                    <b>В чате не ругаться, не использовать ненормативную лексику. Используется Websocket. Ответы на сообщения приходят не часто.</b>
+                </Typography>
+            </Box>
           <Messages />
           <AddMessages />
         </Container>
