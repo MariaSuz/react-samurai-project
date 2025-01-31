@@ -11,7 +11,10 @@ const chatReducer = (state = initialState, action: ActionsTypes): initialStateTy
     case 'chat/SET_MESSAGES':
       return {
         ...state,
-      messages: [...state.messages, ...action.messages]
+      // messages: [...state.messages, ...action.messages]
+      messages: [...state.messages, ...action.messages.filter(
+        (newMsg) => !state.messages.some((msg) => msg.message === newMsg.message)
+      )]
     }
     default:
       return state;
@@ -19,14 +22,14 @@ const chatReducer = (state = initialState, action: ActionsTypes): initialStateTy
 }
 
 export const actions = {
-  setMessages: (messages: ChatMessageType[]) => ({type: 'chat/SET_MESSAGES', messages} as const),
+  setMessages:(messages: ChatMessageType[])  => ({type: 'chat/SET_MESSAGES', messages} as const),
 }
 
 let _newMessageHandler: ((messages: ChatMessageType[]) => void) | null = null
 const newMessageHandlerCreator = (dispatch: Dispatch) => {
     if (_newMessageHandler === null) {
         _newMessageHandler = (messages) => {
-            dispatch(actions.setMessages(messages))
+          dispatch(actions.setMessages(Array.isArray(messages) ? messages : [messages]));
         }
     }
     return _newMessageHandler
