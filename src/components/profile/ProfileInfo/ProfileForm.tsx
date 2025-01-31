@@ -1,5 +1,5 @@
 
-import { Box, Button, List, ListItem, ListItemText, ListSubheader, Typography } from '@mui/material';
+import { Box, Button, Link, List, ListItem, ListItemText, ListSubheader, Typography } from '@mui/material';
 import { ProfileType } from '../../../types/types';
 import ProfileInfoCSS from'./ProfileInfo.module.css';
 import React from 'react';
@@ -36,15 +36,20 @@ export const ProfileForm: React.FC<PropsType> = (props) => {
                 </ListSubheader>
             }>
                 {filtered.map(key =>
-                    <ListItem style={{height: '30px'}}>
-                        <ListItemText primary={<Typography variant="overline" style={{ color: '#49c0f0'}}>{`${key}: ${props.profile.contacts[key]}`}</Typography>}  />
+                    <ListItem key={key} style={{height: '30px'}}>
+                        <ListItemText primary=
+                            {<Typography variant="overline" style={{ color: '#49c0f0'}}>
+                                <Link href={props.profile.contacts[key]} underline="none" style={{ color: 'inherit' }} target="_blank">
+                                    {`${key}: ${props.profile.contacts[key]}`}
+                                </Link>
+                            </Typography>}  /> 
                         {/* <ListItemText>{`${key}: ${props.profile.contacts[key]}`}</ListItemText> */}
                     </ListItem>
                 )}
             </List>
             {props.isOwner &&( 
                     <Box textAlign='center' sx={{ m: 2}}>
-                         <Button onClick = {props.goToEditMode} variant="contained">Refresh profile</Button>
+                         <Button onClick = {props.goToEditMode} variant="contained">Edit profile</Button>
                     </Box>
                )
             }

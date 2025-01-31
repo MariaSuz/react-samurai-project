@@ -71,7 +71,7 @@ export const ProfileEditForm: React.FC<PropsType> = (props) => {
                     {/* Контакты!!! */}
                     <ListItemButton onClick={handleClick}>
                         <ListItemIcon>
-                        <ContactsIcon />
+                            <ContactsIcon />
                         </ListItemIcon>
                         <ListItemText primary="Contacts" />
                         {open ? <ExpandLess /> : <ExpandMore />}
@@ -80,7 +80,7 @@ export const ProfileEditForm: React.FC<PropsType> = (props) => {
                         <List
                         component="div"
                         disablePadding
-                        sx={{ display: 'flex', flexDirection: 'column' }}
+                        sx={{ display: 'flex', flexDirection: 'column', maxHeight: '300px', overflowY: 'auto', paddingRight: '8px'}}
                         id="listForm">
                         {Object.keys(props.profile.contacts).map(key => (
                             <TextField
@@ -98,14 +98,13 @@ export const ProfileEditForm: React.FC<PropsType> = (props) => {
                         </List>
                     </Collapse>
                     {/* Контакты!!! */}
-                    <Button type="submit" disabled={isSubmitting} variant="contained" fullWidth>Save profile</Button>
+                    <Button type="submit" disabled={isSubmitting} variant="contained" fullWidth sx={{ m: 1}}>Save profile</Button>
                 </Box>
             </Form>
         )}
     </Formik>
     )
   }
-
 
 
 type PropsType = {

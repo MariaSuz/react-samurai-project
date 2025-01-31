@@ -63,7 +63,7 @@ export const Users: FC = (props) => {
                 aria-controls="panel1-content"
                 id="panel1-header"
                 >
-                    <Typography component="span">Open user search form</Typography>
+                    <Typography component="span">Search users</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <UserSearchForm onFilterChanged = {onFilterChanged} />

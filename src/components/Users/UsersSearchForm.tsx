@@ -28,7 +28,7 @@ export const UserSearchForm: React.FC<UserSearchFormType> = (props) => {
                 <Form>
                     <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
                         <TextField
-                            label="User name for searching"
+                            label="Write a name to search"
                             variant="outlined"
                             name="term"
                             fullWidth
@@ -45,13 +45,12 @@ export const UserSearchForm: React.FC<UserSearchFormType> = (props) => {
                             value={values.friend}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            helperText="Please select user status"
                             >
                             <MenuItem value="null">All</MenuItem>
                             <MenuItem value="true">Only followed</MenuItem>
                             <MenuItem value="false">Only unfollowed</MenuItem>
                         </TextField>
-                        <Button type="submit" disabled={isSubmitting} variant="contained">
+                        <Button type="submit" disabled={isSubmitting} variant="contained" sx={{ m: 2}}>
                             Find Users
                         </Button>
                     </Box>

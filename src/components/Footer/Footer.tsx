@@ -8,19 +8,19 @@ export const Footer: FC = (): ReactElement => {
         width: "100%",
         height: "auto",
         paddingTop: "1rem",
-        paddingBottom: "1rem",
+        paddingBottom: "1rem"
       }}
     >
       <Container maxWidth="lg">
         <Grid container direction="column" alignItems="center">
           <Grid item xs={12}>
             <Typography color="black" variant="h5">
-              Samurai junior devops social network
+              Samurai junior developers social network
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography color="textSecondary" variant="subtitle1">
-              2025 | React | Material UI | React Router| Hooks| TS | API| made by <Link color="inherit" href="https://github.com/MariaSuz/react-samurai-project">MariaSuz</Link>
+              2025 | React | Material UI | React Router | Hooks | TypeScript | API | made by <Link color="inherit" href="https://github.com/MariaSuz/react-samurai-project">MariaSuz</Link>
             </Typography>           
           </Grid>
         </Grid>

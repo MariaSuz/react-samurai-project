@@ -18,7 +18,7 @@ const Profile:React.FC<PropsType> = (props) => {
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column',  alignItems: 'center' }}>
             <ProfileInfo {...props} />
-            <MyPosts />
+            {/* <MyPosts /> */}
         </Container>
     )
 }
