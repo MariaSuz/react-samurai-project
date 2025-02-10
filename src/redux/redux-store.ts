@@ -10,7 +10,7 @@ import {reducer as formReducer} from 'redux-form';
 import appReducer from './app-reducer.ts';
 import chatReducer from './chat-reducer.ts';
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     profilePage: profileReducer,
     messagesPage: dialogsReducer,
     sidebar: sidebarReducer,
@@ -21,21 +21,21 @@ let reducers = combineReducers({
     form: formReducer,
 });
 
-type RootReducerType = typeof reducers;
-export type AppStateType = ReturnType<RootReducerType>; //Создает тип из типа выше (чтобы не расписывать)
+
+export type AppStateType = ReturnType<typeof rootReducer>; //Создает тип из типа выше (чтобы не расписывать)
 
 //Тип для ActionCreator универсальный
 type PropertiesTypes<T> = T extends {[key: string]: infer U } ? U : never;
 export type InferActionsTypes<T extends {[key: string]: (...args: any[])=>any }> = ReturnType<PropertiesTypes<T>>;
 
-
 //Санки типизируем
 export type BaseThunkType<A extends Action, R = Promise<void>> =  ThunkAction<R, AppStateType, unknown, A>;
 
+//Dispatch типизируем
 export type AppDispatch = ThunkDispatch<AppStateType, unknown, AnyAction>
 
 // @ts-ignore
-let store =  configureStore({reducer: reducers}, applyMiddleware(thunk));
+let store =  configureStore({reducer: rootReducer}, applyMiddleware(thunk));
 // @ts-ignore
 window.store = store;
 
